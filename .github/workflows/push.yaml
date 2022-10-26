@@ -60,7 +60,7 @@ jobs:
       - name: Copy build files
         run: |
           CONTAINER=$(docker create ${{ env.image_repository }}:${{ needs.build.outputs.tag }})
-          docker cp $CONTAINER:/app/build $(pwd)
+          docker cp $CONTAINER:/app/dist $(pwd)
       - name: Minio Deploy
         uses: mamal72/minio-perfect-deploy-action@main
         with:
@@ -69,5 +69,5 @@ jobs:
           secret_key: ${{ secrets.MINIO_SECRET_KEY }}
           bucket: ${{ secrets.MINIO_BUCKET }}
           # Optional inputs with their defaults:
-          source_dir: 'build'
+          source_dir: 'dist'
           target_dir: '/'
