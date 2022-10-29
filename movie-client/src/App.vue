@@ -21,5 +21,8 @@ export default {
 </script>
 
 <style>
-
+body {
+  margin: 0;
+  background-color: #F1F1F1;
+}
 </style>

@@ -1,10 +1,9 @@
 <template>
     <div class="content">
-        <router-view></router-view>
+        <BaseCarousel />
+        <router-view>Content</router-view>
     </div>
 </template>
-<script>
-export default {
-    
-}
+<script setup>
+import BaseCarousel from '../base/carousel/BaseCarousel.vue';
 </script>
