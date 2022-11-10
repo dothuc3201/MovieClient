@@ -2,6 +2,7 @@
   <TheHeader />
   <TheContainer />
   <TheFooter />
+  
 </template>
 
 <script>
@@ -16,10 +17,10 @@ export default {
     TheHeader,
     TheContainer,
     TheFooter
-}
+  }
 }
 </script>
 
 <style>
-
+@import url(./css/main.css);
 </style>
