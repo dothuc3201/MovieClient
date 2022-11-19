@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-        <div class="row">
+        <div class="d-flex align-items-center justify-content-around">
             <router-link to="/" class="header-logo">
                 <img :src="logo" alt="logo" style="width: 130px" />
             </router-link>
@@ -14,7 +14,7 @@
                     />
                 </el-select>
             </div>
-            <div class="header-navigation">
+            <div class="header-navigation d-flex">
                 <router-link to="/" class="header-content">Lịch chiếu theo rạp</router-link>
                 <router-link to="/films" class="header-content">Phim</router-link>
                 <router-link to="/" class="header-content">Rạp</router-link>
