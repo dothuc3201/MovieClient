@@ -3,7 +3,7 @@
         <div class=".col-lg-12 col-md-12 col-sm-6 col-6">
             <div class="product-item no-padding">
                 <div class="pi-img-wrapper">
-                    <img class="img-responsive border-radius-20" alt="" :src="data.avatarUrl">
+                    <img class="img-responsive border-radius-20 m-auto" alt="" :src="data.avatarUrl">
                     <!-- <span style="position: absolute; top: 10px; left: 10px;">
                             <img src="/Assets/Common/icons/films/c-18.png" class="img-responsive">
                         </span> -->
@@ -18,7 +18,7 @@
         </div>
         <div class=".col-lg-12 col-md-12 col-sm-6 col-6">
             <div class="film-info film-xs-info">
-                <h3 class="text-center text-sm-left text-xs-left bold font-sm-18 font-xs-14"
+                <h3 class="d-flex align-items-center text-center text-sm-left text-xs-left bold font-sm-18 font-xs-14"
                     style="max-height: 50px; min-height: 50px;">
                     <a href="/chi-tiet-phim.htm?gf=6eb12b5d-5edf-4cbf-959d-8cc22fe6c0c8">{{ data.name }}</a>
                 </h3>

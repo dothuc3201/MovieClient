@@ -1,21 +1,23 @@
 <template>
-    <div>
-        <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Phim sắp chiếu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Phim đang chiếu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Suất chiếu đặc biệt</a>
-            </li>
-        </ul>
-    </div>
-    <div class="film-page row">
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 padding-right-30 padding-left-30 padding-bottom-30"
-            v-for="(item, index) in filmList" :key="index">
-            <FilmBox idField="_id" :data="item" />
+    <div class="m-auto" style="max-width: 1150px;">
+        <div>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Phim sắp chiếu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Phim đang chiếu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Suất chiếu đặc biệt</a>
+                </li>
+            </ul>
+        </div>
+        <div class="film-page row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 padding-right-30 padding-left-30 padding-bottom-30"
+                v-for="(item, index) in filmList" :key="index">
+                <FilmBox idField="_id" :data="item" />
+            </div>
         </div>
     </div>
 </template>
@@ -34,9 +36,7 @@ export default {
     async created() {
         this.controllLoader();
         await this.loadData();
-        console.log(res.data);
         this.filmList = res.data;
-        console.log(this.filmList);
         this.controllLoader();
     },
     methods: {
@@ -52,12 +52,10 @@ export default {
                     skipPage: 0,
                     type: 3
                 }
-                current.controllLoader();
                 const res = await getPaging("film/get-films", param);
                 if (res.data) {
                     current.filmList = res.data;
                 }
-                current.controllLoader();
             } catch (error) {
                 console.log(error);
             }
@@ -71,3 +69,10 @@ export default {
     }
 }
 </script>
+
+<style>
+
+.film-page{
+    min-height: 600px;
+}
+</style>
