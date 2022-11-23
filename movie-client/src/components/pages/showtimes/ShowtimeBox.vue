@@ -1,8 +1,7 @@
 <template>
     <div class="row">
-        <div class=".col-lg-12 col-md-12 col-sm-6 col-6">
-            <div class="product-item no-padding">
-                <div class="pi-img-wrapper">
+        <div class="col-6">
+            <div class="pi-img-wrapper">
                     <img class="img-responsive border-radius-20 m-auto" alt="" :src="data.avatarUrl">
                     <!-- <span style="position: absolute; top: 10px; left: 10px;">
                             <img src="/Assets/Common/icons/films/c-18.png" class="img-responsive">
@@ -11,12 +10,8 @@
                         <a class="fancybox-fast-view" @click="openTrailerPopup"><i class="fa fa-play-circle"></i></a>
                     </div>
                 </div>
-
-                <div class="sticker sticker-new"></div>
-
-            </div>
         </div>
-        <div class=".col-lg-12 col-md-12 col-sm-6 col-6">
+        <div class="col-6">
             <div class="film-info film-xs-info">
                 <h3 class="d-flex align-items-center text-center text-sm-left text-xs-left bold font-sm-18 font-xs-14"
                     style="max-height: 50px; min-height: 50px;">
@@ -30,39 +25,18 @@
                     </li>
                 </ul>
             </div>
-            <div class="text-center padding-bottom-30" style="min-height: 85px;">
-                <a style="display: block;" class="btn btn-primary"                 
-                @click="openShowtimesPopup">
-                    <span><i class="fa fa-ticket mr3"></i></span>
-                    MUA VÉ</a>
-            </div>
+            
         </div>
     </div>
-
 </template>
+
 <script>
 export default {
     data() {
-        return {        
+        return {
+            
         }
     },
-    props: ["data"],
-    created(){
-        
-    },
-    methods:{
-        openShowtimesPopup(){
-            this.$emit("openShowtimesPopup")
-        }
-    }
-
+    props: ['data']
 }
 </script>
-
-<style>
-.img-responsive{
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
-</style>

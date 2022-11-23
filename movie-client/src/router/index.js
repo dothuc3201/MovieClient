@@ -1,5 +1,6 @@
 import Home from "@/components/pages/home/HomePage.vue";
 import Film from "@/components/pages/film/FilmPage.vue";
+import Showtime from "@/components/pages/showtimes/ShowtimePage.vue";
 import { createRouter, createWebHistory } from "vue-router";
 const routes = [
     {
@@ -11,7 +12,12 @@ const routes = [
         path:"/films",
         name:'films',
         component: Film
-    }
+    },
+    {
+        path:"/showtimes",
+        name:'showtimes',
+        component: Showtime
+    },
 ]
 
 const router =  createRouter({
