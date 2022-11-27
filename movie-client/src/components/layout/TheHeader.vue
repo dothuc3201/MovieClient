@@ -19,8 +19,8 @@
                 <router-link to="/films" class="header-content">Phim</router-link>
                 <router-link to="/" class="header-content">Rạp</router-link>
                 <router-link to="/" class="header-content">Giá vé</router-link>
-                <router-link to="/" class="header-content">Tin mới và ưu đãi</router-link>
-                <router-link to="/" class="header-content">Thành viên</router-link>
+                <router-link to="/news" class="header-content">Tin mới và ưu đãi</router-link>
+                <router-link to="/member" class="header-content">Thành viên</router-link>
             </div>
             <div class="header-account">
                 <img :src="account" alt="logo" style="width: 40px" />
