@@ -8,18 +8,9 @@ import {apiUrl} from '../constants';
  * @returns dữ liệu trả về
  */
 export const getDataApi = async (url, params) =>{
-    const res = await axios(`${apiUrl}${url}`, {
-        method: 'GET',
-        mode: 'no-cors',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-        credentials: 'same-origin',
-        params
-      })
+    const res = await axios(`${apiUrl}${url}`, {params});
     //const res = await axios.get(`${apiUrl}${url}`, param);
+    
     return res;
 }
 

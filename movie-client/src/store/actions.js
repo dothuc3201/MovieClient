@@ -1,6 +1,6 @@
 export default{
     //kiểm soát loader
-    controllLoader({ commit, getters }){
-        commit("setShowLoading", !getters.isShowLoading)
+    controllLoader({ commit, state }){
+        commit("setShowLoading", !state.isShowLoading)
     },
 }
