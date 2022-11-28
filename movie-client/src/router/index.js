@@ -6,6 +6,7 @@ import NewsDetail from "@/components/pages/news-detail/NewsDetailPage.vue";
 import Showtime from "@/components/pages/showtimes/ShowtimePage.vue";
 import Login from "@/components/pages/login/LoginPage.vue";
 import InformationCinema from "@/components/pages/cinema/InformationCinema.vue";
+import InfoFare from "@/components/pages/fare/InfoFare.vue";
 import { createRouter, createWebHistory } from "vue-router";
 const routes = [
     {
@@ -47,6 +48,11 @@ const routes = [
         path:"/thong-tin-rap",
         name:'infoCinema',
         component: InformationCinema
+    },
+    {
+        path:"/gia-ve",
+        name:'infoFare',
+        component: InfoFare
     },
 ]
 

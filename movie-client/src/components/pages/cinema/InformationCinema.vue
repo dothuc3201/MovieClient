@@ -97,6 +97,7 @@ export default {
         background-image: url('../../../assets/image/image-cinema.png');
         height: 303px;
         background-size: 100%;
+        background-repeat: no-repeat;
     }
     .info-content {
         div {
