@@ -65,3 +65,21 @@ a{
     top: 0;
     right: 0;
 }
+
+@media(min-width: 768px) {
+    .container {
+        width: 730px;
+    }
+}
+
+@media(min-width: 992px) {
+    .container {
+        width: 800px;
+    }
+}
+
+@media(min-width: 1200px) {
+    .container {
+        width: 900px;
+    }
+}
