@@ -37,11 +37,11 @@ export default {
 	}
 
 	.image {
-		height: 208px;
+		height: auto;
 		border-radius: 10px 10px 0px 0px !important;
 		overflow: hidden;
 		img {
-			height: 100%;
+			width: 100%;
 		}
 	}
 
@@ -56,7 +56,7 @@ export default {
 	&.large {
 		position: relative;
 		.image {
-			height: 100%;
+			width: 100%;
 		border-radius: 10px !important;
 		}
 		.title {
