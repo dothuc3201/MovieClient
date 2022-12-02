@@ -4,4 +4,10 @@ export default {
         clientX: "",
         clientY: "",
       },
+    cinemaId:"",
+    filmId:"",
+    areaId:"",
+    cinemaName:"",
+    data:{},
+    currentSchedules:{},
 }

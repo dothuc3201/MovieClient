@@ -3,13 +3,13 @@
         <div>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" style="font-size: 24px">Phim sắp chiếu</a>
+                    <a class="nav-link active" href="#" style="font-size: 24px" @click="loadData(1)">Phim sắp chiếu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="font-size: 24px">Phim đang chiếu</a>
+                    <a class="nav-link" href="#" style="font-size: 24px" @click="loadData(2)">Phim đang chiếu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="font-size: 24px">Suất chiếu đặc biệt</a>
+                    <a class="nav-link" href="#" style="font-size: 24px" @click="loadData(3)">Suất chiếu đặc biệt</a>
                 </li>
             </ul>
         </div>
@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <ShowtimePopup v-if="isShowTimePopup"/>
+    <ShowtimePopup v-if="isShowTimePopup" @closeDialog="closeDialog" :data="data" />
 </template>
 <script>
 import { getPaging } from '@/js/api/getApi';
@@ -32,26 +32,26 @@ export default {
     data() {
         return {
             filmList: [],
-            isShowTimePopup: false
+            isShowTimePopup: false,
+            data: {},
         }
     },
-    async created() {
-        this.controllLoader();
-        await this.loadData();        
+    async created() {        
+        await this.loadData(1);        
     },
     methods: {
         /**
          * load dữ liệu phim
          * DVTHUC 30/10/2022
          */
-        async loadData() {
+        async loadData(type) {
+            this.controllLoader();
             try {
                 let current = this;
-                
                 let param = {
                     limit: 6,
                     skipPage: 0,
-                    type: 3
+                    type: type
                 }
                 const res = await getPaging("film/get-films", param);
                 if (res.data) {
@@ -63,9 +63,18 @@ export default {
                 this.controllLoader();
             }
         },
-
-        openShowtimesPopup(){
+        /**
+         * mở showtimespopup
+         */
+        openShowtimesPopup(data){
             this.isShowTimePopup = true;
+            this.data = data;
+        },
+        /**
+         * đóng popup
+         */
+        closeDialog(){
+            this.isShowTimePopup = false;
         },
 
         // ẩn/ hiện loading
@@ -79,7 +88,7 @@ export default {
 
 <style>
 
-.film-page{
+/* .film-page{
     min-height: 600px;
-}
+} */
 </style>
