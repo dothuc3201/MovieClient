@@ -61,11 +61,6 @@ const routes = [
         component: Member
     },
     {
-        path:"/showtimes",
-        name:'showtimes',
-        component: Showtime
-    },
-    {
         path:"/login",
         name:'login',
         component: Login

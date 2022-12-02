@@ -20,7 +20,9 @@
                 <router-link to="/thong-tin-rap" class="header-content">Rạp</router-link>
                 <router-link to="/gia-ve" class="header-content">Giá vé</router-link>
                 <router-link to="/news" class="header-content">Tin mới và ưu đãi</router-link>
-                <router-link to="/member" class="header-content">Thành viên</router-link>
+                <!-- chia trường hợp đã login và chưa login -->
+                <!-- <router-link to="/member" class="header-content">Thành viên</router-link> -->
+                <router-link to="/login" class="header-content">Thành viên</router-link>
             </div>
             <div class="header-account">
                 <img :src="account" alt="logo" style="width: 40px" />
