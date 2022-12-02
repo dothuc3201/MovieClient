@@ -10,4 +10,5 @@ export default {
     cinemaName:"",
     data:{},
     currentSchedules:{},
+    token:""
 }
