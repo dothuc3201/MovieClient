@@ -17,41 +17,62 @@
                             style="max-height: 50px; min-height: 50px;">
                             {{ data.name }}
                         </h3>
-                        <div>{{data.description}}</div>
+                        <div>{{ data.description }}</div>
                         <div class="row mt-3">
                             <div class="col-3">ĐẠO DIỄN</div>
-                            <div class="col-9">{{data.director}}</div>
+                            <div class="col-9">{{ data.director }}</div>
                         </div>
                         <div class="row">
                             <div class="col-3">DIỄN VIÊN</div>
-                            <div class="col-9">{{data.actors}}</div>
+                            <div class="col-9">{{ data.actors }}</div>
                         </div>
                         <div class="row">
                             <div class="col-3">THỂ LOẠI</div>
-                            <div class="col-9">{{data.genre}}</div>
+                            <div class="col-9">{{ data.genre }}</div>
                         </div>
                         <div class="row">
                             <div class="col-3">THỜI LƯỢNG</div>
-                            <div class="col-9">{{data.durationMin}} phút</div>
+                            <div class="col-9">{{ data.durationMin }} phút</div>
                         </div>
                         <div class="row">
                             <div class="col-3">ĐỘ TUỔI</div>
-                            <div class="col-9">{{data.ageRestriction}} tuổi</div>
+                            <div class="col-9">{{ data.ageRestriction }} tuổi</div>
                         </div>
                         <div class="row">
                             <div class="col-3">NGÀY KHỞI CHIẾU</div>
-                            <div class="col-9">{{data.openingDay}}</div>
+                            <div class="col-9">{{ data.openingDay }}</div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="m-auto mt-3"  id="film-detail-showtime" style="min-height: 200px; max-width: 1150px;">
-            <div class=""><b>2D phụ đề</b></div>
-            <div class="row">
-                <div class="col-2">
-                    <div class="text-center showtime-time m-2 p-2" @click="openDetail">9:30</div>
-                    <div class="text-center">167 ghế trống</div>
+        <div class="m-auto mt-3" id="film-detail-showtime" style="min-height: 200px; max-width: 1150px;">
+            <div class="modal-show-time border-bottom ">
+
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" style="font-size: 24px" @click="loadData">
+                            {{ getDate(nowTime) }}
+                            <span style="font-size: 16px">/{{ getMonth(nowTime) }}</span></a>
+                    </li>
+                    <li class="nav-item" v-for="n in 5" :key="n">
+                        <a class="nav-link" href="#" style="font-size: 24px" @click="loadDataByDate(n)">
+                            {{ getDate(new Date(nowTime.getTime() + n * 86400000)) }}
+                            <span style="font-size: 16px">/{{ getMonth(new Date(nowTime.getTime() + n * 86400000))
+                            }}
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="" style="min-height: 200px;">
+                <div class=""><b>2D phụ đề</b></div>
+                <div class="row">
+                    <div class="col-2" v-for="(item, index) in schedules" :key="index">
+                        <div class="text-center showtime-time m-2 p-2" @click="openDetail(item)">
+                            {{ bindingTime(item.time) }}</div>
+                        <div class="text-center">{{ item.numEmptySeat }} ghế trống</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,16 +94,17 @@ export default {
             filmId: state => state.filmId
         })
     },
-    async created(){
+    async created() {
         console.log(this.$route.params.id);
         this.changeFilmId(this.$route.params.id);
-        this.controllLoader();
+        
         await this.loadData();
     },
-    methods :{
+    methods: {
         async loadData() {
+            this.controllLoader();
             try {
-                let current = this;               
+                let current = this;
                 const res = await getById("film/get-film", current.filmId);
                 //const res = await getPaging("film/get-films", param);
                 if (res.data) {
@@ -93,6 +115,26 @@ export default {
                 console.log(error);
                 this.controllLoader();
             }
+        },
+
+        bindingTime(time) {
+            let minute = (new Date(time)).getUTCMinutes()
+            minute = minute < 10 ? `0${minute}` : minute;
+            return `${(new Date(time)).getUTCHours()}:${minute}`
+        },
+
+        getDate(time) {
+            let day = (new Date(time)).getDate();
+            day = day < 10 ? `0${day}` : day;
+            return day;
+        },
+
+        getMonth(time) {
+            // let day = (new Date(time)).getDate();
+            // day = day < 10 ? `0${day}` : day;
+            let month = (new Date(time)).getMonth() + 1;
+            month = month < 10 ? `0${month}` : month;
+            return month;
         },
 
         // ẩn/ hiện loading

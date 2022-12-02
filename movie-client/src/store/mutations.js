@@ -23,5 +23,9 @@ export default{
 
     setSchedules(state, currentSchedules){
         state.currentSchedules = currentSchedules
-    }
+    },
+
+    setToken(state, token){
+        state.token = token
+    },
 }

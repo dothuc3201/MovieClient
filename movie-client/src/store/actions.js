@@ -28,5 +28,9 @@ export default{
 
     changeShedules({commit}, payload){
         commit("setSchedules", payload)
+    },
+
+    changeToken({commit}, payload){
+        commit("setToken", payload)
     }
 }

@@ -7,7 +7,6 @@ import BookSuccess from "@/components/pages/book/BookSuccess.vue";
 import News from "@/components/pages/news/NewsPage.vue";
 import Member from "@/components/pages/member/MemberPage.vue";
 import NewsDetail from "@/components/pages/news-detail/NewsDetailPage.vue";
-import Showtime from "@/components/pages/showtimes/ShowtimePage.vue";
 import Login from "@/components/pages/login/LoginPage.vue";
 import InformationCinema from "@/components/pages/cinema/InformationCinema.vue";
 import InfoFare from "@/components/pages/fare/InfoFare.vue";
