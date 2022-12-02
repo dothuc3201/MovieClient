@@ -1,3 +1,5 @@
+@import url(./icon.css);
+
 .padding-bottom-30 {
     padding-bottom: 30px !important;
 }
@@ -37,4 +39,52 @@
 
 a{
     text-decoration: none;
+}
+
+.dialog{
+    display: block;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.dialog-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+}
+
+.dialog-header button{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.showtime-time{
+    background-color: #E5E5E5;
+    cursor: pointer;
+}
+
+.btn a{
+    color: #fff;
+}
+
+.img-responsive{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.nav-link {
+    color: black;
+}
+
+.active{
+    color: #0d6efd;
 }

@@ -1,0 +1,118 @@
+<template>
+    <div id="showtime-page" class="m-auto mt-3" style="max-width: 1150px;">
+        <div>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" style="font-size: 24px" @click="loadData">
+                        {{ getDate(nowTime) }}
+                        <span style="font-size: 16px">/{{ getMonth(nowTime) }}</span></a>
+                </li>
+                <li class="nav-item" v-for="n in 5" :key="n">
+                    <a class="nav-link" href="#" style="font-size: 24px" @click="loadDataByDate(n)">
+                        {{ getDate(new Date(nowTime.getTime() + n * 86400000)) }}
+                        <span style="font-size: 16px">/{{ getMonth(new Date(nowTime.getTime() + n * 86400000)) }}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="showtime-film row">
+            <div v-for="(item, index) in filmList" :key="index" class="col-6">
+                <ShowtimeBox :data=item @openDetail="openDetail" />
+            </div>
+        </div>
+    </div>
+    <ShowtimeDetail v-if="isShowShowtimeDetail" @closeDialog="closeDialog"  />
+</template>
+
+<script>
+import { mapActions, mapState } from 'vuex';
+import ShowtimeBox from './ShowtimeBox.vue';
+import { getPaging } from '@/js/api/getApi';
+import ShowtimeDetail from './ShowtimeDetail.vue';
+
+export default {
+    data() {
+        return {
+            nowTime: new Date(),
+            filmList: [],
+            isShowShowtimeDetail: false,
+        };
+    },
+    components: { ShowtimeBox, ShowtimeDetail },
+    async created() {
+
+        await this.loadData();
+    },
+    computed: {
+        ...mapState({
+            cinemaId: state => state.cinemaId
+        })
+    },
+    methods: {
+
+        async loadData() {
+            this.controllLoader();
+            try {
+                var current = this;
+                const res = await getPaging("film-schedule/get-film-schedules-by-cinema", {
+                    cinemaId: current.cinemaId,
+                    date: new Date(current.nowTime.getFullYear(), current.nowTime.getMonth(),current.nowTime.getDate(), 7)
+                });
+                if (res.data) { 
+                              
+                    current.filmList = res.data.data;
+                }
+
+                current.controllLoader();
+            } catch (error) {
+                console.log(error);
+                current.controllLoader();
+            }
+        },
+
+        getDate(time) {
+            let day = (new Date(time)).getDate();
+            day = day < 10 ? `0${day}` : day;
+            return day;
+        },
+
+        getMonth(time) {
+            // let day = (new Date(time)).getDate();
+            // day = day < 10 ? `0${day}` : day;
+            let month = (new Date(time)).getMonth() + 1;
+            month = month < 10 ? `0${month}` : month;
+            return month;
+        },
+
+        async loadDataByDate(n) {
+            this.controllLoader();
+            try {
+                var current = this;
+                let queryDate = new Date(current.nowTime.getTime() + n * 86400000);
+                const res = await getPaging("film-schedule/get-film-schedules-by-cinema", {
+                    cinemaId: current.cinemaId,
+                    date: new Date(queryDate.getFullYear(), queryDate.getMonth(),queryDate.getDate(), 7)
+                });
+                if (res.data) {
+                    current.filmList = res.data.data;
+                }
+                
+            } catch (error) {
+                console.log(error);
+            }
+            this.controllLoader();
+        },
+
+        closeDialog() {
+            this.isShowShowtimeDetail = false;
+        },
+
+        openDetail(){
+            this.isShowShowtimeDetail = true;
+        },
+
+        ...mapActions(['controllLoader']),
+    }
+}
+</script>

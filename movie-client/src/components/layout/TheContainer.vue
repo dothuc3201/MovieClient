@@ -1,8 +1,13 @@
 <template>
-    <div class="content">        
+    <div class="content" style="min-height: 200px;">        
         <router-view></router-view>
     </div>
+    <BaseLoading></BaseLoading>
 </template>
-<script setup>
-//import BaseCarousel from '../base/carousel/BaseCarousel.vue';
+<script >
+import BaseLoading from '../base/loading/BaseLoading.vue';
+export default {
+  components: { BaseLoading },
+    
+}
 </script>

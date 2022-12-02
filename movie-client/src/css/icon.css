@@ -1,0 +1,133 @@
+.icon-loading{
+    background-image: url(../assets/loading.svg);
+}
+
+
+.icon-sprite{
+    background: url(../assets/image/Sprites.64af8f61.svg) no-repeat;
+    cursor: pointer;
+}
+
+.icon-dashboard{
+    background-position: -30px -1628px;
+}
+
+.icon-toggle{
+    background-position: -424px -86px;
+}
+
+.icon-cash{
+    background-position: -73px -1628px;
+}
+
+.icon-sidebar-pu {
+    background-position: -161px -1628px;
+}
+
+.icon-sidebar-sale {
+    background-position: -204px -1628px;
+}
+
+.icon-sidebar-invoice {
+    background-position: -249px -1628px;
+}
+
+.icon-employee{
+    background-position: -116px -1662px;
+}
+
+.icon-logo{
+    background-position:-1232px -1015px;
+	width: 44px;
+	height: 45px;
+    margin-right: 10px;
+}
+
+.icon-three-stripes{
+    background-position: -847px -30px;
+}
+.icon-notification{
+    background-position: -788px -30px;
+}
+
+.icon-search{
+    background-position:  -620px -31px;
+}
+
+.icon-refresh{
+    background-position: -423px -201px;
+}
+
+.icon-exit{
+    background-position: -145px -145px;
+}
+.icon-arrow-down{
+    background-position: -1125px -354px;
+}
+.icon-avatar{
+    background-position: -352px -894px;
+}
+
+.icon-question{
+    background-position: -826px -456px;
+}
+
+.icon-error{
+    background-position: -24px -954px;
+}
+
+.icon-dropdown{
+    background-position: -896px -359px;
+}
+
+.icon-arrow-dropdown {
+    background-position: -560px -359px;
+}
+
+.icon-exclamation-warning-48 {
+    background-position: -592px -456px;
+}
+
+.icon-arrow-up-black {
+    background-position: -560px -359px;
+}
+
+.icon-24{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.icon-16{
+    width: 16px;
+    height: 16px;
+    margin: auto 8px auto 8px;
+    cursor: pointer;
+}
+
+.icon-48{
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.icon-layout{
+    margin: auto 8px auto 8px;
+}
+
+.icon-button{
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.icon-button div{
+    margin: auto;
+}
+
+.icon-excel-nav {
+    background-position: -704px -200px;
+}
