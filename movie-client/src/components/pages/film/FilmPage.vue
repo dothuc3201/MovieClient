@@ -77,6 +77,10 @@ export default {
             this.isShowTimePopup = false;
         },
 
+        openShowtimesPopup(){
+            this.isShowTimePopup = true;
+        },
+
         // ẩn/ hiện loading
         ...mapActions(['controllLoader']),
     },

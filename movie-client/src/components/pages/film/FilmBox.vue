@@ -3,7 +3,7 @@
         <div class=".col-lg-12 col-md-12 col-sm-6 col-6">
             <div class="product-item no-padding">
                 <div class="pi-img-wrapper">
-                    <img class="img-responsive border-radius-20 m-auto" alt="" :src="data.avatarUrl" />
+                    <img class="img-responsive border-radius-20 m-auto" alt="" :src="data.avatarUrl">
                     <!-- <span style="position: absolute; top: 10px; left: 10px;">
                             <img src="/Assets/Common/icons/films/c-18.png" class="img-responsive">
                         </span> -->
