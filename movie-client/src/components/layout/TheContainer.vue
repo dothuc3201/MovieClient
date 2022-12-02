@@ -1,5 +1,5 @@
 <template>
-    <div class="content" style="min-height: 600px;">        
+    <div class="content" style="min-height: 200px;">        
         <router-view></router-view>
     </div>
     <BaseLoading></BaseLoading>
