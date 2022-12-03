@@ -1,10 +1,10 @@
 <template>
     <div class="header d-flex align-items-center" style="height: 90px;">
-        <div class="d-flex justify-content-end" style="background-color: black; padding-right: 100px;" v-if="!token">
+        <!-- <div class="d-flex justify-content-end" style="background-color: black; padding-right: 100px;" v-if="!token">
             <router-link to="/login" class="px-2" style="color: #fff;">Login</router-link>
             <div style="color: #fff;">|</div>
             <router-link to="/login" class="px-2" style="color: #fff;">Register</router-link>
-        </div>
+        </div> -->
         <div class="d-flex align-items-center justify-content-around w-100" v-if="!isAdmin">
             <router-link to="/" class="header-logo">
                 <img :src="logo" alt="logo" style="width: 130px" />
@@ -18,15 +18,29 @@
                 <router-link to="/showtimes" class="header-content">Lịch chiếu theo rạp</router-link>
                 <router-link to="/films" class="header-content">Phim</router-link>
                 <router-link to="/thong-tin-rap" class="header-content">Rạp</router-link>
-                <router-link to="/gia-ve" class="header-content">Giá vé</router-link>
+                <!-- <router-link to="/gia-ve" class="header-content">Giá vé</router-link> -->
                 <router-link to="/news" class="header-content">Tin mới và ưu đãi</router-link>
                 <!-- chia trường hợp đã login và chưa login -->
-                <!-- <router-link to="/member" class="header-content">Thành viên</router-link> -->
-                <router-link to="/login" class="header-content">Thành viên</router-link>
+                <router-link :to="token ? '/member' : '/login'" class="header-content">Thành viên</router-link>
             </div>
-            <div class="header-account" v-if="token">
-                <img :src="account" alt="logo" style="width: 40px" />
-            </div>
+            <el-dropdown trigger="click">
+                <div class="header-account">
+                    <img :src="account" alt="logo" style="width: 40px" />
+                </div>
+                <template #dropdown>
+                    <el-dropdown-menu v-if="!token">
+                        <el-dropdown-item>
+                            <router-link to="/login">Đăng nhập</router-link>
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                    <el-dropdown-menu v-else>
+                    <el-dropdown-item>
+                        <router-link to="/">Đăng xuất</router-link>
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+            
         </div>
         <div class="d-flex align-items-center flex-fill" v-if="isAdmin">
             <div style="width: 200px;">
