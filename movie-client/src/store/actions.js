@@ -32,5 +32,10 @@ export default{
 
     changeToken({commit}, payload){
         commit("setToken", payload)
-    }
+    },
+
+    changeIsAdmin({commit}, payload){
+        commit("setAdmin", payload)
+    },
+    
 }

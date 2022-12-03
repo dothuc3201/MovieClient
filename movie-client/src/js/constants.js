@@ -1,1 +1,1 @@
-export const apiUrl = 'https://cdcnnb.herokuapp.com/';
+export const apiUrl = 'https://movie-api.aqaurius6666.space/';

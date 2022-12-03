@@ -56,7 +56,7 @@
                             <span style="font-size: 16px">/{{ getMonth(nowTime) }}</span></a>
                     </li>
                     <li class="nav-item" v-for="n in 5" :key="n">
-                        <a class="nav-link" href="#" style="font-size: 24px" @click="loadDataByDate(n)">
+                        <a class="nav-link" href="#" style="font-size: 24px" @click="loadDataByDate(n, $event)">
                             {{ getDate(new Date(nowTime.getTime() + n * 86400000)) }}
                             <span style="font-size: 16px">/{{ getMonth(new Date(nowTime.getTime() + n * 86400000))
                             }}
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import { getById } from '@/js/api/getApi';
+import { getById, getPaging } from '@/js/api/getApi';
 import { mapActions, mapState } from 'vuex'
 export default {
     data() {
@@ -95,15 +95,19 @@ export default {
         })
     },
     async created() {
-        console.log(this.$route.params.id);
+        //console.log(this.$route.params.id);
         this.changeFilmId(this.$route.params.id);
         
         await this.loadData();
     },
     methods: {
-        async loadData() {
+        async loadData(event) {
             this.controllLoader();
             try {
+                if (event) {
+                    document.getElementById("film-detail-showtime").querySelector(".active").classList.remove("active");
+                    event.target.classList.add("active");
+                }
                 let current = this;
                 const res = await getById("film/get-film", current.filmId);
                 //const res = await getPaging("film/get-films", param);
@@ -115,6 +119,30 @@ export default {
                 console.log(error);
                 this.controllLoader();
             }
+        },
+
+        async loadDataByDate(n, event) {
+            this.controllLoader();
+            try {
+                if (event) {
+                    document.getElementById("film-detail-showtime").querySelector(".active").classList.remove("active");
+                    event.target.classList.add("active");
+                }
+                var current = this;
+                let queryDate = new Date(current.nowTime.getTime() + n * 86400000);
+                const res = await getPaging("film-schedule/get-film-schedules", {
+                    filmId: current.data._id,
+                    cinemaId: current.cinemaId,
+                    date: new Date(queryDate.getFullYear(), queryDate.getMonth(),queryDate.getDate(), 7)
+                });
+                if (res.data) {
+                    current.schedules = res.data.data[current.cinemaName];
+                }
+                
+            } catch (error) {
+                console.log(error);
+            }
+            this.controllLoader();
         },
 
         bindingTime(time) {
