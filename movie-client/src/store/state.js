@@ -10,5 +10,6 @@ export default {
     cinemaName:"",
     data:{},
     currentSchedules:{},
-    token:""
+    token:"",
+    isAdmin:false
 }

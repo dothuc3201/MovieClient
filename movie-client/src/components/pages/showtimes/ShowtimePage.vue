@@ -8,7 +8,7 @@
                         <span style="font-size: 16px">/{{ getMonth(nowTime) }}</span></a>
                 </li>
                 <li class="nav-item" v-for="n in 5" :key="n">
-                    <a class="nav-link" href="#" style="font-size: 24px" @click="loadDataByDate(n)">
+                    <a class="nav-link" href="#" style="font-size: 24px" @click="loadDataByDate(n, $event)">
                         {{ getDate(new Date(nowTime.getTime() + n * 86400000)) }}
                         <span style="font-size: 16px">/{{ getMonth(new Date(nowTime.getTime() + n * 86400000)) }}
                         </span>
@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    <ShowtimeDetail v-if="isShowShowtimeDetail" @closeDialog="closeDialog"  />
+    <ShowtimeDetail v-if="isShowShowtimeDetail" @closeDialog="closeDialog" />
 </template>
 
 <script>
@@ -51,16 +51,21 @@ export default {
     },
     methods: {
 
-        async loadData() {
+        async loadData(event) {
+
             this.controllLoader();
             try {
+                if (event) {
+                    document.getElementById("showtime-page").querySelector(".active").classList.remove("active");
+                    event.target.classList.add("active");
+                }
                 var current = this;
                 const res = await getPaging("film-schedule/get-film-schedules-by-cinema", {
                     cinemaId: current.cinemaId,
-                    date: new Date(current.nowTime.getFullYear(), current.nowTime.getMonth(),current.nowTime.getDate(), 7)
+                    date: new Date(current.nowTime.getFullYear(), current.nowTime.getMonth(), current.nowTime.getDate(), 7)
                 });
-                if (res.data) { 
-                              
+                if (res.data) {
+
                     current.filmList = res.data.data;
                 }
 
@@ -85,19 +90,21 @@ export default {
             return month;
         },
 
-        async loadDataByDate(n) {
+        async loadDataByDate(n, event) {
+            document.getElementById("showtime-page").querySelector(".active").classList.remove("active");
+            event.target.classList.add("active");
             this.controllLoader();
             try {
                 var current = this;
                 let queryDate = new Date(current.nowTime.getTime() + n * 86400000);
                 const res = await getPaging("film-schedule/get-film-schedules-by-cinema", {
                     cinemaId: current.cinemaId,
-                    date: new Date(queryDate.getFullYear(), queryDate.getMonth(),queryDate.getDate(), 7)
+                    date: new Date(queryDate.getFullYear(), queryDate.getMonth(), queryDate.getDate(), 7)
                 });
                 if (res.data) {
                     current.filmList = res.data.data;
                 }
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -108,7 +115,7 @@ export default {
             this.isShowShowtimeDetail = false;
         },
 
-        openDetail(){
+        openDetail() {
             this.isShowShowtimeDetail = true;
         },
 

@@ -48,8 +48,26 @@
         </div>
     </footer>
 </template>
-<script setup>
+<script>
+import { mapState } from 'vuex';
 import logo from "../../assets/image/logo.png";
+
+export default {
+    data() {
+        return {
+            logo
+        }
+    },
+    created(){
+        console.log(this.isAdmin);
+    },
+
+    computed:{
+        ...mapState({
+            isAdmin: state => state.isAdmin
+        })
+    }
+}
 
 </script>
 

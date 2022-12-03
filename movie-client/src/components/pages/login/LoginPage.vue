@@ -18,13 +18,15 @@
                     <div class="row">
                         <div class="mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Email</label>
-                            <input type="text" id="txtEmail" value="" class="form-control" placeholder="Email" required>
+                            <input type="email" id="txtEmailLogin" v-model="loginForm.gmail" class="form-control" 
+                            placeholder="Email" required @blur="checkValidate">
                         </div>
                     </div>
                     <div class="row">
                         <div class="mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Mật khẩu</label>
-                            <input type="text" id="txtPass" value="" class="form-control" placeholder="Mật khẩu" required>
+                            <input type="password" id="txtPassLogin" v-model="loginForm.password" class="form-control" 
+                            placeholder="Mật khẩu" required @blur="checkValidate">
                         </div>
                     </div>
                     <div class="text-center">
@@ -37,29 +39,32 @@
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Họ tên</label>
-                            <input type="text" id="txtName" value="" class="form-control" placeholder="Họ tên" required>
+                            <input type="text" id="txtName" v-model="registerForm.name" class="form-control" placeholder="Họ tên" required 
+                            @blur="checkValidate">
                         </div>
                         <div class="col-md-6 mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Email</label>
-                            <input type="text" id="txtEmail" value="" class="form-control" placeholder="Email" required>
+                            <input type="email" id="txtEmailRegister" v-model="registerForm.gmail" class="form-control" placeholder="Email" 
+                            required @blur="checkValidate">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Mật khẩu</label>
-                            <input type="text" id="txtPass" value="" class="form-control" placeholder="Mật khẩu" required>
+                            <input type="password" id="txtPassRegister" v-model="registerForm.password" class="form-control" placeholder="Mật khẩu" 
+                            required @blur="checkValidate">
                         </div>
                         <div class="col-md-6 mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Xác nhận mật khẩu</label>
-                            <input type="text" id="txtConfirmPass" value="" class="form-control"
-                                placeholder="Xác nhận mật khẩu" required>
+                            <input type="password" id="txtConfirmPass" v-model="registerForm.repassword" class="form-control"
+                                placeholder="Xác nhận mật khẩu" required @blur="checkValidate">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Ngày sinh</label>
-                            <input type="date" id="txtNgaySinh" value="" class="datepicker form-control"
-                                placeholder="Ngày sinh" required>
+                            <input type="date" id="txtNgaySinh" v-model="registerForm.birthday" class="datepicker form-control"
+                                placeholder="Ngày sinh" required @blur="checkValidate">
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="gender">Giới tính</label>
@@ -78,11 +83,11 @@
                                 placeholder="Số điện thoại" required>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-6 mb-4">
                             Xác thực
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="mb-4">
                             <el-checkbox v-model="checked1" label="" size="large" />
@@ -110,6 +115,8 @@
     </div>
 </template>
 <script>
+import { postDataApi } from '@/js/api/fetchAPI';
+import { mapActions } from 'vuex';
 
 export default {
     data() {
@@ -136,6 +143,108 @@ export default {
         openShowChinhSachPopup() {
             this.showChinhSachPopup = true;
         },
+
+        async login(){
+            
+            let isValid = true,
+            url = 'auth/login';   
+            if(window.location.pathname.includes('admin')){
+                url = 'admin/auth/login';
+            }         
+            let requiredInputs = document.getElementById("login").querySelectorAll("[required]");
+            requiredInputs.forEach(item => {
+                if (!item.value){
+
+                    isValid = false;
+                    item.classList.add("input-error")
+                    //console.log(item, isValid);
+                }
+            });
+
+
+            if (isValid){                
+                try {
+                    let current = this;
+                    let res = await postDataApi(url, current.loginForm);
+                    
+                    if (res.data.data.refreshToken){
+                        localStorage.setItem("token", res.data.data.refreshToken);
+                        current.changeToken(res.data.data.refreshToken);
+                        if(res.data.data.isAdmin){
+                            localStorage.setItem("isAdmin", true);
+                            current.changeIsAdmin(true);
+
+                            current.$router.push('/admin');
+                        }
+                        else
+                        {
+                            localStorage.setItem("isAdmin", false);
+                            current.changeIsAdmin(false);
+                            current.$router.push('/');
+                        }
+                    }
+                    console.log(current.$router);
+                } catch (error) {
+                    console.log(error);
+                    alert('Tên đăng nhập hoặc mật khẩu không đúng.')
+                }
+            }
+        },
+
+        async register(){
+
+            let isValid = true,
+            url = 'auth/register';   
+            if(window.location.pathname.includes('admin')){
+                url = 'admin/auth/register';
+            }            
+            let requiredInputs = document.getElementById("register").querySelectorAll("[required]");
+            requiredInputs.forEach(item => {
+                if (!item.value){
+
+                    isValid = false;
+                    item.classList.add("input-error")
+                    //console.log(item, isValid);
+                }
+            });
+
+            /// console.log(window.location.origin);
+            // window.location = window.location.origin;
+
+            if (isValid){                
+                try {
+                    let current = this;
+                    let res = await postDataApi(url, current.registerForm);
+                    
+                    if (res.data.data.refreshToken){
+                        localStorage.setItem("token", res.data.data.refreshToken);
+                        current.changeToken(res.data.data.refreshToken);
+                        if(res.data.data.isAdmin){
+                            localStorage.setItem("isAdmin", res.data.data.refrisAdmineshToken);
+                            current.changeIsAdmin(true);
+
+                            current.$router.push('/admin');
+                        }
+                        else
+                        current.$router.push('/');
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        },
+
+        checkValidate(event){
+            if(event.target.value && event.target.classList.contains("input-error")){
+                event.target.classList.remove("input-error");
+            }
+            if(!event.target.value && !event.target.classList.contains("input-error")){
+                event.target.classList.add("input-error");
+            }          
+        },
+
+        ...mapActions(['changeToken']),
+        ...mapActions(['changeIsAdmin']),
     },
     computed: {
     }
@@ -197,6 +306,13 @@ input {
     height: 32px;
     font-size: 14px;
 }
+
+.input-error {
+    border-color: #ff1d1d;
+}
+// input:focus{
+
+// }
 
 .confirm {
     display: flex;

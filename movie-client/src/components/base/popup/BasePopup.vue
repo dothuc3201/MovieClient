@@ -5,7 +5,7 @@
             </div>
             <div class="popup-content">
                 <div class="content-left">
-                    <div class="icon-sprite icon-48 icon-question"></div>
+                    <div class="icon-sprite icon-48 icon-error"></div>
                 </div>
                 <div class="content-right"></div>
             </div>

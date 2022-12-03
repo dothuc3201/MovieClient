@@ -10,6 +10,10 @@ import NewsDetail from "@/components/pages/news-detail/NewsDetailPage.vue";
 import Login from "@/components/pages/login/LoginPage.vue";
 import InformationCinema from "@/components/pages/cinema/InformationCinema.vue";
 import InfoFare from "@/components/pages/fare/InfoFare.vue";
+import Admin from "@/components/pages/admin/home/AdminHome.vue";
+import AdminArea from "@/components/pages/admin/area/AdminArea.vue";
+import AdminCinema from "@/components/pages/admin/cinema/AdminCinema.vue";
+import AdminFilm from "@/components/pages/admin/film/AdminFilm.vue";
 import { createRouter, createWebHistory } from "vue-router";
 const routes = [
     {
@@ -65,6 +69,11 @@ const routes = [
         component: Login
     },
     {
+        path:"/login-admin",
+        name:'login-admin',
+        component: Login
+    },
+    {
         path:"/thong-tin-rap",
         name:'infoCinema',
         component: InformationCinema
@@ -73,6 +82,26 @@ const routes = [
         path:"/gia-ve",
         name:'infoFare',
         component: InfoFare
+    },
+    {
+        path:"/admin",
+        name:'admin',
+        component: Admin
+    },
+    {
+        path:"/admin-area",
+        name:'admin-area',
+        component: AdminArea
+    },
+    {
+        path:"/admin-cinema",
+        name:'admin-cinema',
+        component: AdminCinema
+    },
+    {
+        path:"/admin-film",
+        name:'admin-film',
+        component: AdminFilm
     },
 ]
 
