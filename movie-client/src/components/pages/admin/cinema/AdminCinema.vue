@@ -1,5 +1,10 @@
 <template>
-    <div></div>
+    <div class="d-flex align-items-center w-100 p-2 justify-content-between">
+        <div>
+            <h3>Danh sách rạp</h3>
+        </div>
+        <div><el-button type="primary" @click="addCinema">Thêm rạp</el-button></div>
+    </div>
     <el-table :data="tableData" class="">
         <el-table-column label="Rạp" width="180">
             <template #default="scope">
@@ -78,7 +83,11 @@ export default {
         await this.loadArea();        
     },
     methods: {
-
+        addCinema(){
+            this.data = {};
+            this.isShowPopup = true;
+        },
+        
         handleEdit(index, row) {
             console.log(index, row);
             this.data = row;

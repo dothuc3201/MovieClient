@@ -2,7 +2,7 @@
     <div id="chose-place" class="d-flex justify-content-center">
         <div class="px-3">
             <div class="py-3">
-                <h3>{{data.name}}</h3>
+                <h3>{{ data.name }}</h3>
             </div>
             <div id="screen_form">
                 <div id="seat-status" class="d-flex d-flex justify-content-around mb-3">
@@ -28,24 +28,35 @@
                         <img class="img-responsive" src="@/assets/image/ic-screen.png" style="max-width: 750px;" />
                     </div>
                     <div class="">
-                        <div v-for="n in seats.length/10" :key="n">
+                        <div v-for="n in seats.length / 10" :key="n">
                             <div class="d-flex justify-content-around">
-                                <div class="seat-item text-center mb-2" v-for="item in 10"                                 
-                                :key="item" @click="chooseSeat(n, item)"
-                                :class="{
-                                    'seat-unselect':!seats[(n-1)*10 + item - 1].isChoose,
-                                    'seat-select':seats[(n-1)*10 + item - 1].isChoose,
-                                    'seat-buy':seats[(n-1)*10 + item - 1].isBooked
-                                }"
-                                >
-                                    {{ seatRow[`row${n}`] }}{{ item }}
+                                <div class="seat-item text-center mb-2" v-for="item in 10" :key="item"
+                                    @click="chooseSeat(n, item)" :class="{
+                                        'seat-unselect': !seats[(n - 1) * 10 + item - 1].isChoose,
+                                        'seat-select': seats[(n - 1) * 10 + item - 1].isChoose,
+                                        'seat-buy': seats[(n - 1) * 10 + item - 1].isBooked
+                                    }">
+                                    <!-- {{ seatRow[`row${n}`] }}{{ item }} -->
+                                    {{ ((n - 1) * 10 + item) }}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="payment-seat-row"></div>
+            <div class="payment-seat-row w-100 mt-3 row" style="height: 100px; background-color: #fff;">
+                <div class="col-8 p-3" style="border-right: 1px solid #ccc;">
+                    <div class="d-flex justify-content-center align-items-center" style="height: 35px;">
+                        <div><img width="35" height="35" src="@/assets/image/seat-unselect-normal.png" /></div>
+                        <div class="mx-2">GHẾ THƯỜNG</div>
+                    </div>
+                    <div class="w-100 text-center" v-if="chooseSeatNumber">{{ chooseSeatNumber }} x 50000</div>
+                </div>
+                <div class="col-4 p-3">
+                    <div class="w-100 text-center" style="height: 35px;">Tổng tiền</div>
+                    <div class="w-100 text-center" v-if="chooseSeatNumber">{{ (chooseSeatNumber * 50000) }}</div>
+                </div>
+            </div>
         </div>
         <div id="film-info" class="row" style="height:650px; width: 350px; background-color: #fff;">
             <div class="col-6">
@@ -53,7 +64,7 @@
                     src="https://famtech-dev.s3.amazonaws.com/shared/images/72da6765144ff27529070156ed756a58.jpg" />
             </div>
             <div class="col-6">
-                <div>{{data.name}}</div>
+                <div>{{ data.name }}</div>
                 <div>2D phụ đề</div>
             </div>
 
@@ -63,7 +74,7 @@
                     <p>Thể loại</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{data.genre}}</b></div>
+            <div class="col-6"><b>{{ data.genre }}</b></div>
 
             <div class="col-6">
                 <div>
@@ -71,7 +82,7 @@
                     <p>Thời lượng</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{data.durationMin}} phút</b></div>
+            <div class="col-6"><b>{{ data.durationMin }} phút</b></div>
 
             <div class="col-6">
                 <div>
@@ -79,7 +90,7 @@
                     <p>Rạp chiếu</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{cinemaName}}</b></div>
+            <div class="col-6"><b>{{ cinemaName }}</b></div>
 
             <div class="col-6">
                 <div>
@@ -87,7 +98,9 @@
                     <p>Ngày chiếu</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{getDate(currentSchedules.time)}}/{{getMonth(currentSchedules.time)}}/{{(new Date(currentSchedules.time)).getFullYear()}}</b></div>
+            <div class="col-6"><b>{{ getDate(currentSchedules.time) }}/{{ getMonth(currentSchedules.time) }}/{{ (new
+                    Date(currentSchedules.time)).getFullYear()
+            }}</b></div>
 
             <div class="col-6">
                 <div>
@@ -95,7 +108,7 @@
                     <p>Giờ chiếu</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{bindingTime(currentSchedules.time)}}</b></div>
+            <div class="col-6"><b>{{ bindingTime(currentSchedules.time) }}</b></div>
 
             <div class="col-6">
                 <div>
@@ -103,7 +116,7 @@
                     <p>Phòng chiếu</p>
                 </div>
             </div>
-            <div class="col-6"><b>P{{currentSchedules.room}}</b></div>
+            <div class="col-6"><b>P{{ currentSchedules.room }}</b></div>
 
             <div class="col-6">
                 <div>
@@ -111,10 +124,10 @@
                     <p>Ghế ngồi</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{}}</b></div>
+            <div class="col-6"><b>{{ chooseSeatName }}</b></div>
             <div class="col-12">
                 <div class="text-center padding-bottom-30" style="min-height: 85px;">
-                    <a style="display: block;" class="btn btn-primary" @click="openShowtimesPopup">
+                    <a style="display: block;" class="btn btn-primary" @click="booking">
                         <span><i class="fa fa-ticket mr3"></i></span>
                         MUA VÉ</a>
                 </div>
@@ -124,6 +137,7 @@
 </template>
 
 <script>
+import { postAdminDataApi } from '@/js/api/fetchAPI';
 import { mapState } from 'vuex'
 export default {
     data() {
@@ -140,37 +154,50 @@ export default {
                 row8: 'H',
                 row9: 'J',
                 row10: 'K',
-            }
+            },
+            chooseSeatNumber: 0,
+            chooseSeatName: []
         }
     },
 
-    computed:{
+    computed: {
         ...mapState({
             data: state => state.data,
             currentSchedules: state => state.currentSchedules,
-            cinemaName: state => state.cinemaName
+            cinemaName: state => state.cinemaName,
+            filmId: state => state.filmId,
+            cinemaId: state => state.cinemaId,
+            token: state => state.token,
         })
     },
 
-    created(){
+    created() {
         this.seats = this.currentSchedules.seats;
         this.seats.filter(item => {
-            if(!item.isBooked){
+            if (!item.isBooked) {
                 item.isChoose = false;
             }
         })
         //this.seats[15].isBooked = true;
     },
 
-    methods:{
-        chooseSeat(row, col){
-            this.seats[(row-1)*10 + col - 1].isChoose = !this.seats[(row-1)*10 + col - 1].isChoose;
+    methods: {
+        chooseSeat(row, col) {
+            this.seats[(row - 1) * 10 + col - 1].isChoose = !this.seats[(row - 1) * 10 + col - 1].isChoose;
+            this.chooseSeatNumber = 0;
+            this.chooseSeatName = [];
+            this.seats.filter(item => {
+                if (item.isChoose) {
+                    this.chooseSeatNumber += 1;
+                    this.chooseSeatName.push(item.number)
+                }
+            })
         },
 
         bindingTime(time) {
-            let minute = (new Date(time)).getUTCMinutes()
+            let minute = (new Date(time)).getMinutes()
             minute = minute < 10 ? `0${minute}` : minute;
-            return `${(new Date(time)).getUTCHours()}:${minute}`
+            return `${(new Date(time)).getHours()}:${minute}`
         },
 
         getDate(time) {
@@ -186,6 +213,25 @@ export default {
             month = month < 10 ? `0${month}` : month;
             return month;
         },
+
+        async booking() {
+            try {
+                let current = this;
+                let bookData = {
+                    filmScheduleId: current.currentSchedules._id,
+                    amount: current.chooseSeatNumber*50000,
+                    seats: current.chooseSeatName,
+                    vnpReturnUrl: "http://localhost:8080/dat-ve-thanh-cong"
+                }
+                const res = await postAdminDataApi('user/booking', current.token, bookData);
+                if(res.data.data){
+                    window.location = res.data.data;
+                }
+                console.log(res);
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 }
 </script>
@@ -193,20 +239,20 @@ export default {
 <style>
 .seat-item {
     height: 40px;
-    width: 40px;    
+    width: 40px;
     cursor: pointer;
     background-size: 40px 40px;
 }
 
-.seat-unselect{
+.seat-unselect {
     background-image: url(@/assets/image/seat-unselect-normal.png);
 }
 
-.seat-select{
+.seat-select {
     background-image: url(@/assets/image/seat-select-normal.png);
 }
 
-.seat-buy{
+.seat-buy {
     background-image: url(@/assets/image/seat-buy-normal.png) !important;
 }
 </style>
