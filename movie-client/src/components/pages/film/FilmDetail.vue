@@ -82,12 +82,12 @@
                     <span class="header-text">Trailer</span>
                 </div>
                 <div class="trailer-content">
-                    <!-- <iframe class="fiml-video" src="https://youtube.com/embed/ue80QwXMRHg"></iframe> -->
+                    <iframe class="fiml-video" src="https://youtube.com/embed/93p2lOgxjdw"></iframe>
                     
-                    <video id="my_video_1" class="video-js vjs-fluid vjs-default-skin" controls preload="auto"
+                    <!-- <video id="my_video_1" class="video-js vjs-fluid vjs-default-skin" controls preload="auto"
                         data-setup='{}'>
                             <source src="https://stg-cdn.famtechvn.com/shared/videos/af437239-e293-4616-952d-dfa39538d748/af437239-e293-4616-952d-dfa39538d748-playlist.m3u8" type="application/x-mpegURL">
-                        </video>
+                        </video> -->
                 </div>
             </div>
         </div>
