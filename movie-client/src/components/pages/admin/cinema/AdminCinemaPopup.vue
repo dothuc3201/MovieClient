@@ -15,7 +15,7 @@
                         <el-input v-model="dataCinema.name" @blur="checkRequired" required />
                     </el-form-item>
                     <el-form-item label="Tỉnh/thành phố" prop="areaId">
-                        <el-select v-model="dataCinema.areaId" class="m-2" placeholder="Select">
+                        <el-select v-model="dataCinema.areaId" class="w-100" placeholder="Chọn khu vực">
                             <el-option v-for="item in dataArea" :key="item.value" :label="item.name"
                                 :value="item._id" />
                         </el-select>

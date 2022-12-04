@@ -87,7 +87,8 @@ export default {
     data() {
         return {
             data: {},
-            nowTime: new Date()
+            nowTime: new Date(),
+            schedules:[],
         }
     },
     computed: {
@@ -150,9 +151,9 @@ export default {
         },
 
         bindingTime(time) {
-            let minute = (new Date(time)).getUTCMinutes()
+            let minute = (new Date(time)).getMinutes()
             minute = minute < 10 ? `0${minute}` : minute;
-            return `${(new Date(time)).getUTCHours()}:${minute}`
+            return `${(new Date(time)).getHours()}:${minute}`
         },
 
         getDate(time) {

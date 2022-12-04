@@ -1,6 +1,9 @@
 <template>
-    <div>
-
+    <div class="d-flex align-items-center w-100 p-2 justify-content-between">
+        <div>
+            <h3>Danh sách khu vực</h3>
+        </div>
+        <div><el-button type="primary" @click="addArea">Thêm khu vực</el-button></div>
     </div>
     <el-table :data="tableData" class="">
         <el-table-column label="Tỉnh/thành phố" width="180">
@@ -58,7 +61,10 @@ export default {
         await this.loadArea();        
     },
     methods: {
-
+        addArea(){
+            this.data = {};
+            this.isShowPopup = true;
+        },
         handleEdit(index, row) {
             this.data = row;
             this.isShowPopup = true;

@@ -1,5 +1,11 @@
 <template>
     <div>
+        <div class="d-flex align-items-center w-100 p-2 justify-content-between">
+            <div>
+                <h3>Lịch chiếu phim</h3>
+            </div>
+            <div><el-button type="primary">Thêm lịch chiếu phim</el-button></div>
+        </div>
         <div class="m-auto mt-3" id="film-detail-info" style="max-width: 1150px;">
             <div class="row">
                 <div class="product-item no-padding col-3">
@@ -95,7 +101,7 @@ export default {
             isShowPopup: true,
             data: {},
             nowTime: new Date(),
-            schedules:[],
+            schedules: [],
         }
     },
 
@@ -151,9 +157,9 @@ export default {
         },
 
         bindingTime(time) {
-            let minute = (new Date(time)).getUTCMinutes()
+            let minute = (new Date(time)).getMinutes()
             minute = minute < 10 ? `0${minute}` : minute;
-            return `${(new Date(time)).getUTCHours()}:${minute}`
+            return `${(new Date(time)).getHours()}:${minute}`
         },
 
         getDate(time) {

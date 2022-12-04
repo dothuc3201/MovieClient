@@ -1,10 +1,10 @@
 <template>
-    <div class="header" :class="{'d-flex align-items-center': token ? true : false}" style="height: 90px;">
+    <div class="header" :class="{ 'd-flex align-items-center': token ? true : false }" style="height: 90px;">
         <div class="d-flex justify-content-end" style="background-color: black; padding-right: 100px;" v-if="!token">
             <router-link to="/login" class="px-2" style="color: #fff;">Login</router-link>
             <div style="color: #fff;">|</div>
             <router-link to="/login" class="px-2" style="color: #fff;">Register</router-link>
-        </div> 
+        </div>
         <div class="d-flex align-items-center justify-content-around w-100" v-if="!isAdmin">
             <router-link to="/" class="header-logo">
                 <img :src="logo" alt="logo" style="width: 130px" />
@@ -13,23 +13,9 @@
                 <!-- <el-select v-model="value" class="m-2" placeholder="Chọn rạp phim">
                     <el-option v-for="item in dataCinema" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select> -->
-                <el-select 
-                    v-model="cinemaValue" 
-                    class="m-2" 
-                    placeholder="Chọn rạp phim"
-                    :change="changeCinema()"
-                >
-                    <el-option-group
-                        v-for="group in dataCinemas"
-                        :key="group._id"
-                        :label="group.name"
-                        >
-                        <el-option
-                            v-for="item in group.cinemas"
-                            :key="item._id"
-                            :label="item.name"
-                            :value="item._id"
-                        />
+                <el-select v-model="cinemaValue" class="m-2" placeholder="Chọn rạp phim" :change="changeCinema()">
+                    <el-option-group v-for="group in dataCinemas" :key="group._id" :label="group.name">
+                        <el-option v-for="item in group.cinemas" :key="item._id" :label="item.name" :value="item._id" />
                     </el-option-group>
                 </el-select>
             </div>
@@ -53,13 +39,13 @@
                         </el-dropdown-item>
                     </el-dropdown-menu>
                     <el-dropdown-menu v-else>
-                    <el-dropdown-item>
-                        <router-link to="/">Đăng xuất</router-link>
-                    </el-dropdown-item>
-                </el-dropdown-menu>
+                        <el-dropdown-item>
+                            <router-link to="/" @click="logout">Đăng xuất</router-link>
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
                 </template>
             </el-dropdown>
-            
+
         </div>
         <div class="d-flex align-items-center flex-fill" v-if="isAdmin">
             <div style="width: 200px;">
@@ -67,13 +53,32 @@
                     <img :src="logo" alt="logo" style="width: 130px" />
                 </router-link>
             </div>
-            <div class="d-flex justify-content-end flex-fill p-3">
-                <div>
-                    Chọn rạp
+            <div class="d-flex justify-content-around flex-fill p-3">
+                <div class="top-cart-block">
+                    <el-select v-model="cinemaValue" class="m-2" placeholder="Chọn rạp phim" :change="changeCinema()">
+                        <el-option-group v-for="group in dataCinemas" :key="group._id" :label="group.name">
+                            <el-option v-for="item in group.cinemas" :key="item._id" :label="item.name"
+                                :value="item._id" />
+                        </el-option-group>
+                    </el-select>
                 </div>
-                <div class="header-account" v-if="token">
-                    <img :src="account" alt="logo" style="width: 40px" />
-                </div>
+                <el-dropdown trigger="click">
+                    <div class="header-account">
+                        <img :src="account" alt="logo" style="width: 40px" />
+                    </div>
+                    <template #dropdown>
+                        <el-dropdown-menu v-if="!token">
+                            <el-dropdown-item>
+                                <router-link to="/login">Đăng nhập</router-link>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                        <el-dropdown-menu v-else>
+                            <el-dropdown-item>
+                                <router-link to="/" @click="logout">Đăng xuất</router-link>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
             </div>
         </div>
     </div>
@@ -88,38 +93,6 @@ import { getPaging } from '@/js/api/getApi';
 
 const value = ref('')
 
-// const dataCinema = [
-//   {
-//     label: 'Hà Nội',
-//     options: [
-//       {
-//         value: '1',
-//         label: 'Beta Cầu Giấy',
-//       },
-//       {
-//         value: '2',
-//         label: 'Beta Thanh Xuân',
-//       },
-//     ],
-//   },
-//   {
-//     label: 'Hồ Chí Minh',
-//     options: [
-//       {
-//         value: '1',
-//         label: 'Beta Quận 1',
-//       },
-//       {
-//         value: '2',
-//         label: 'Beta Quận 2',
-//       },
-//       {
-//         value: '3',
-//         label: 'Beta Quận 3',
-//       },
-//     ],
-//   },
-// ]
 
 export default {
     data() {
@@ -127,7 +100,7 @@ export default {
             logo,
             account,
             value,
-            dataCinemas:[],
+            dataCinemas: [],
             cinemaValue: ''
         }
     },
@@ -139,9 +112,10 @@ export default {
     },
 
     async created() {
-        this.setCinemaId(); 
-        await this.getCinemas();       
-        
+        this.changeCinemaId(localStorage.getItem("cinemaId"));
+        this.setCinemaId();
+        await this.getCinemas();
+
     },
 
     computed: {
@@ -150,14 +124,14 @@ export default {
             isAdmin: state => state.isAdmin,
             cinemaId: state => state.cinemaId,
         }),
-        
+
     },
 
     methods: {
-        async getCinemas(){
+        async getCinemas() {
             try {
                 const res = await getPaging('area/get-areas');
-                if(res.data){
+                if (res.data) {
                     console.log('aaaaaa', res.data.data)
                     this.dataCinemas = res.data.data;
                     console.log('bbb', this.dataCinemas)
@@ -167,14 +141,35 @@ export default {
             }
         },
 
-        changeCinema() {
+        async changeCinema() {
             console.log('value', this.cinemaValue);
             this.changeCinemaId(this.cinemaValue);
+            // const res = await getById('cinema', this.cinemaValue);
+            // if (res.data.data){
+
+            // }
+            let cinemas = [];
+            this.dataCinemas.filter(item => {
+                cinemas = [...cinemas, ...item.cinemas]
+            })
+            cinemas.filter(item => {
+                if (item._id == this.cinemaValue) {
+                    this.changeCinemaName(item.name);
+                }
+            })
             // dùng dataCinemas tìm ra tên rạp
         },
 
         setCinemaId() {
             this.cinemaValue = this.cinemaId;
+        },
+
+        logout() {
+            localStorage.removeItem("token");
+            localStorage.removeItem("isAdmin");
+            this.changeToken('');
+            this.changeIsAdmin('');
+            this.$router.push('/');
         },
 
         ...mapActions(['changeToken']),
