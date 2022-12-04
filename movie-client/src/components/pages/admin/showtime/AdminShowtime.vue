@@ -4,7 +4,7 @@
             <div>
                 <h3>Lịch chiếu phim</h3>
             </div>
-            <div><el-button type="primary">Thêm lịch chiếu phim</el-button></div>
+            <div><el-button type="primary" @click="addShowtime">Thêm lịch chiếu phim</el-button></div>
         </div>
         <div class="m-auto mt-3" id="film-detail-info" style="max-width: 1150px;">
             <div class="row">
@@ -87,29 +87,37 @@
         <div id="film-detail-trailer"></div>
     </div>
     <ChooseFilm v-if="isShowPopup" @closePopupAndLoad="closePopupAndLoad" />
+    <AdminShowtimePopup v-if="isAddShowtime" @closePopup="closePopup" @closePopupAndLoad="closePopupAndLoad" />
 </template>
 
 <script>
 import ChooseFilm from './ChooseFilm.vue';
 import { getById, getPaging } from '@/js/api/getApi';
 import { mapActions, mapState } from 'vuex'
+import AdminShowtimePopup from './AdminShowtimePopup.vue';
 
 export default {
-    components: { ChooseFilm },
+    components: { ChooseFilm, AdminShowtimePopup },
     data() {
         return {
             isShowPopup: true,
             data: {},
             nowTime: new Date(),
             schedules: [],
+            isAddShowtime:false
         }
     },
 
     methods: {
         async closePopupAndLoad() {
             this.isShowPopup = false;
+            this.isAddShowtime = false;
             await this.loadData();
             await this.loadDataByDate(0);
+        },
+
+        closePopup(){
+            this.isAddShowtime = false;
         },
 
         async loadData(event) {
@@ -174,6 +182,10 @@ export default {
             let month = (new Date(time)).getMonth() + 1;
             month = month < 10 ? `0${month}` : month;
             return month;
+        },
+
+        addShowtime(){
+          this.isAddShowtime = true;  
         },
 
         // ẩn/ hiện loading

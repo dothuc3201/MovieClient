@@ -61,15 +61,16 @@
             </template>
         </el-table-column>
     </el-table>
-    <AdminCinemaPopup v-if="isShowPopup" :data="data" @closePopup="closePopup" @closePopupAndLoad="closePopupAndLoad" />
+    <AdminCinemaPopup v-if="isShowPopup" :isPost="isPost" :data="data" @closePopup="closePopup" @closePopupAndLoad="closePopupAndLoad" />
 
 </template>
 
 <script>
 import { Timer } from '@element-plus/icons-vue';
 import { getPaging } from '@/js/api/getApi';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import AdminCinemaPopup from './AdminCinemaPopup.vue';
+import { deleteAdminDataApi } from '@/js/api/fetchAPI';
 
 export default {
     data() {
@@ -77,6 +78,7 @@ export default {
             tableData: [],
             isShowPopup: false,
             data:{},
+            isPost: true
         }
     },
     async created() {
@@ -86,15 +88,27 @@ export default {
         addCinema(){
             this.data = {};
             this.isShowPopup = true;
+            this.isPost = true
         },
         
         handleEdit(index, row) {
             console.log(index, row);
             this.data = row;
             this.isShowPopup = true;
+            this.isPost = false
         },
-        handleDelete(index, row){
-            console.log(index, row)
+        async handleDelete(index, row){
+            console.log(index, row);
+            this.data = row;
+            try {
+                let current = this;
+                let res = await deleteAdminDataApi('admin/cinema', current.data._id, this.token);
+                if(res.data){
+                    await this.loadArea();  
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
 
         async loadArea(){
@@ -152,7 +166,11 @@ export default {
     },
 
     components:{ Timer, AdminCinemaPopup },
-
+    computed:{
+        ...mapState({
+            token: state => state.token
+        })
+    }
 
 }
 </script>

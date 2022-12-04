@@ -73,42 +73,56 @@
             </template>
         </el-table-column>
     </el-table>
-    <FormFilm v-if="isShowPopup" :data="data" @closePopup="closePopup" @closePopupAndLoad="closePopupAndLoad" />
+    <FormFilm v-if="isShowPopup" :isPost="isPost" :data="data" @closePopup="closePopup" @closePopupAndLoad="closePopupAndLoad" />
 
 </template>
 
 <script>
 import { Timer } from '@element-plus/icons-vue';
 import { getPaging } from '@/js/api/getApi';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import FormFilm from './FormFilm.vue';
+import { deleteAdminDataApi } from '@/js/api/fetchAPI';
 
 export default {
     data() {
         return {
             tableData: [],
             isShowPopup: false,
-            data:{}
+            data:{},
+            isPost: true
         }
     },
     async created() {
-        await this.loadArea();        
+        await this.loadFilm();        
     },
     methods: {
         addFilm(){
             this.data = {};
             this.isShowPopup = true;
+            this.isPost = true;
         },
         handleEdit(index, row) {
             console.log(index, row);
             this.data = row;
             this.isShowPopup = true;
+            this.isPost = false;
         },
-        handleDelete(index, row){
-            console.log(index, row)
+        async handleDelete(index, row){
+            console.log(index, row);
+            this.data = row;
+            try {
+                let current = this;
+                let res = await deleteAdminDataApi('admin/film', current.data._id, this.token);
+                if(res.data){
+                    await this.loadFilm();  
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
 
-        async loadArea(){
+        async loadFilm(){
             this.controllLoader();
             try {
                 let current = this;
@@ -154,7 +168,11 @@ export default {
     },
 
     components:{ Timer, FormFilm },
-
+    computed:{
+        ...mapState({
+            token: state => state.token
+        })
+    }
 
 }
 </script>

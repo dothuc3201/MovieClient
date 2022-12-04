@@ -4,9 +4,7 @@
 
             <div class="dialog-header ">
                 <h5 class="modal-title">Chọn nơi chiếu</h5>
-                <button class="icon-button" @click="btnCloseOnClick">
-                    <div class="icon-24 icon-exit icon-sprite"></div>
-                </button>
+                
             </div>
             <div id="form-choose-film">
                 <el-form ref="formRef" :model="dataFilmArea" label-width="120px" label-position="right"
