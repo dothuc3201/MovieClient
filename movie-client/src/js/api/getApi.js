@@ -23,3 +23,12 @@ export const getById = async (model, id, params) => {
     return res;
 
 };
+
+export const getDataProfile = async (url, token) => {
+    const res = await getDataApi(`${url}`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    return res;
+}

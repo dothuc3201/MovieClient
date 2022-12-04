@@ -1,15 +1,16 @@
 <template>
-    <div id="user-film-page" class="m-auto mt-3" style="max-width: 1150px;">
+<div class="container pt-5">
+    <div id="user-film-page" class="m-auto" style="max-width: 1150px;">
         <div>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" style="font-size: 24px" @click="loadData(1, $event)">Phim sắp chiếu</a>
+                    <a class="nav-link" href="#" style="font-size: 24px" @click="loadData(1, $event)">PHIM SẮP CHIẾU</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="font-size: 24px" @click="loadData(2, $event)">Phim đang chiếu</a>
+                    <a class="nav-link active" href="#" style="font-size: 24px" @click="loadData(2, $event)">PHIM ĐANG CHIẾU</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="font-size: 24px" @click="loadData(3, $event)">Suất chiếu đặc biệt</a>
+                    <a class="nav-link" href="#" style="font-size: 24px" @click="loadData(3, $event)">SUẤT CHIẾU ĐẶC BIỆT</a>
                 </li>
             </ul>
         </div>
@@ -21,6 +22,7 @@
         </div>
     </div>
     <ShowtimePopup v-if="isShowTimePopup" @closeDialog="closeDialog" :data="data" />
+</div>
 </template>
 <script>
 import { getPaging } from '@/js/api/getApi';
@@ -37,7 +39,7 @@ export default {
         }
     },
     async created() {        
-        await this.loadData(1);        
+        await this.loadData(2);        
     },
     methods: {
         /**
@@ -92,8 +94,15 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+.nav-link {
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    line-height: 1.5em;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
 /* .film-page{
     min-height: 600px;
 } */

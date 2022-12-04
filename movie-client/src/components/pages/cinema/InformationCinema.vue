@@ -2,21 +2,21 @@
     <div class="container pt-5">
         <div class="row">
             <div class="info-cinema">
-                <div class="header-info">Thái Nguyên</div>
+                <div class="header-info">{{this.cinemaName}}</div>
                 <div class="info-content">
                     <div class="background-cinema"></div>
                     <div class="info-text">
-                        Thành lập vào tháng 12 năm 2014, Beta Cinemas Thái Nguyên có vị trí trung tâm, toạ lạc tại Hoàng Gia Plaza. Rạp tự hào là rạp phim tư nhân duy nhất và đầu tiên sở hữu hệ thống phòng chiếu phim đạt chuẩn Hollywood tại TP. Thái Nguyên.
+                        Thành lập vào tháng 12 năm 2014, Beta Cinemas có vị trí trung tâm, toạ lạc tại Hoàng Gia Plaza. Rạp tự hào là rạp phim tư nhân duy nhất và đầu tiên sở hữu hệ thống phòng chiếu phim đạt chuẩn Hollywood tại TP.
                     </div>
                     <div class="info-text">
                         Rạp được trang bị hệ thống máy chiếu, phòng chiếu hiện đại với 100% nhập khẩu từ nước ngoài, với 4 phòng chiếu tương được 535 ghế ngồi. Hệ thống âm thanh Dolby 7.1 và hệ thống cách âm chuẩn quốc tế đảm bảo chất lượng âm thanh sống động nhất cho từng thước phim bom tấn.
                     </div>
                     <div class="info-text">
-                        Mức giá xem phim tại Beta Cinemas Thái Nguyên rất cạnh tranh: giá vé 2D chỉ từ 40.000 VNĐ và giá vé 3D chỉ từ 60.000 VNĐ. Không chỉ có vậy, rạp còn có nhiều chương trình khuyến mại, ưu đãi hàng tuần như đồng giá vé 40.000 vào các ngày Thứ 3 vui vẻ, Thứ 4 Beta's Day, đồng giá vé cho Học sinh sinh viên, người cao tuổi, trẻ em.....
+                        Mức giá xem phim tại Beta Cinemas rất cạnh tranh: giá vé 2D chỉ từ 40.000 VNĐ và giá vé 3D chỉ từ 60.000 VNĐ. Không chỉ có vậy, rạp còn có nhiều chương trình khuyến mại, ưu đãi hàng tuần như đồng giá vé 40.000 vào các ngày Thứ 3 vui vẻ, Thứ 4 Beta's Day, đồng giá vé cho Học sinh sinh viên, người cao tuổi, trẻ em.....
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 pt-5 list-film">
+            <div class="col-lg-6 list-film">
 				<h4 class="text-center text-uppercase mb-3 film-text">Phim đang hot</h4>
 				<div class="row">
 					<RecentMovie v-for="(item, index) in recentMovies" :key="index" :data="item"></RecentMovie>
@@ -27,7 +27,7 @@
 </template>
 <script>
 import RecentMovie from '@/components/pages/news-detail/RecentMovie.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 export default {
     components: { RecentMovie },
     data() {
@@ -72,11 +72,15 @@ export default {
         ...mapActions(['controllLoader']),
     },
     computed: {
-    }
+        ...mapState({
+            cinemaName: state => state.cinemaName,
+        })
+    },
 }
 
 </script>
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;422&display=swap');
 .row {
     display: flex;
 }
@@ -85,9 +89,9 @@ export default {
     padding: 0 20px;
 }
 .info-cinema {
-    padding-top: 3rem;
+    // padding-top: 3rem;
     .header-info {
-        font-family: "Open Sans", sans-serif;
+        font-family: 'Oswald', sans-serif;
         line-height: 1.5em;
         font-size: 27px;
         font-weight: 300;

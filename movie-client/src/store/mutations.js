@@ -32,4 +32,8 @@ export default{
     setAdmin(state, isAdmin){
         state.isAdmin = isAdmin;
     },
+
+    setDataUser(state, dataUser){
+        state.dataUser = dataUser
+    },
 }

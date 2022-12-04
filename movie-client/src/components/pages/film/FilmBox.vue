@@ -16,22 +16,22 @@
 
             </div>
         </div>
-        <div class=".col-lg-12 col-md-12 col-sm-6 col-6">
+        <div class=".col-lg-12 col-md-12 col-sm-6 col-6 film-content">
             <div class="film-info film-xs-info">
                 <h3 class="d-flex align-items-center text-center text-sm-left text-xs-left bold font-sm-18 font-xs-14"
                     style="max-height: 50px; min-height: 50px;"
                     >
-                    <router-link :to="'/chi-tiet-film/' + data._id">{{ data.name }}</router-link>
+                    <router-link class="film-name" :to="'/chi-tiet-film/' + data._id">{{ data.name }}</router-link>
                 </h3>
                 <ul class="list-unstyled font-sm-14 font-xs-14">
-                    <li style="max-height: 50px;"><span class="bold">
+                    <li style="max-height: 50px;"><span class="bold film-text" style="font-weight: 700">
                             Thể loại: </span>{{ data.genre }}</li>
                     <li>
-                        <span class="bold">Thời lượng: </span>{{ data.durationMin }} phút
+                        <span class="bold film-text" style="font-weight: 700">Thời lượng: </span>{{ data.durationMin }} phút
                     </li>
                 </ul>
             </div>
-            <div class="text-center padding-bottom-30" style="min-height: 85px;">
+            <div class="text-center padding-bottom-30 mua-ve" style="min-height: 85px;">
                 <a style="display: block;" class="btn btn-primary"                 
                 @click="openShowtimesPopup">
                     <span><i class="fa fa-ticket mr3"></i></span>
@@ -83,6 +83,26 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+.img-responsive {
+    border-radius: 10px;
+}
+.film-name {
+    font-family: 'Oswald', sans-serif;
+    line-height: 1.5em;
+    font-weight: 700;
+    color: #337ab7;
+    font-size: 18px;
+}
+.film-content {
+    padding: 0 12px;
+}
+.film-text {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.mua-ve {
+    font-family: 'Oswald', sans-serif;
+}
 </style>

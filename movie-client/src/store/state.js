@@ -11,5 +11,6 @@ export default {
     data:{},
     currentSchedules:{},
     token:"",
-    isAdmin:false
+    isAdmin:false,
+    dataUser: {},
 }
