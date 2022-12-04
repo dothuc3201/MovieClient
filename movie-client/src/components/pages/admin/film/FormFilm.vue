@@ -38,6 +38,10 @@
                                 required />
                         </el-form-item>
                     </div>
+                    <el-form-item prop="date1" label="Ngày khởi chiếu">
+                        <el-date-picker v-model="dataFilm.openingDay" type="date" label="Pick a date"
+                            placeholder="Ngày khởi chiếu" style="width: 100%" />
+                    </el-form-item>
                     <el-form-item label="Giới thiệu" prop="description">
                         <el-input v-model="dataFilm.description" type="textarea" @blur="checkRequired" required />
                     </el-form-item>
@@ -54,6 +58,7 @@
                         <el-input v-model="dataFilm.trailerUrl" @blur="checkRequired" required />
 
                     </el-form-item>
+                    
                     <el-form-item>
                         <el-button type="primary" @click="submitForm()">Submit</el-button>
                         <!-- <el-button @click="resetForm(formRef)">Reset</el-button> -->
@@ -65,6 +70,8 @@
 </template>
 
 <script>
+import { postAdminDataApi, putAdminDataApi } from '@/js/api/fetchAPI';
+import { mapState } from 'vuex';
 
 
 export default {
@@ -78,14 +85,51 @@ export default {
         this.dataFilm = this.data ? this.data : this.dataFilm
         // console.log(FormInstance);
     },
-    props: ['data'],
+    props: ['data', 'isPost'],
     methods: {
         btnCloseOnClick() {
             this.$emit('closePopup');
         },
 
-    },
+        async submitForm() {
 
+            let isValid = true;
+            let requiredInputs = document.getElementById("form-cinema").querySelectorAll("[required]");
+            requiredInputs.forEach(item => {
+                if (!item.value) {
+
+                    isValid = false;
+                    item.classList.add("input-error")
+                    //console.log(item, isValid);
+                }
+            });
+            if (isValid) {
+                try {
+                    let current = this;
+                    let res;
+                    if (this.isPost) {
+                        res = await postAdminDataApi('admin/film', current.token, current.dataFilm);
+                    } else {
+                        res = await putAdminDataApi(`admin/film/${current.dataFilm._id}`, current.token, current.dataFilm);
+                    }
+
+                    if (res.data.data) {
+                        this.$emit('closePopupAndLoad');
+                    }
+                } catch (error) {
+                    console.log(error);
+                    alert('Lỗi server.')
+                }
+            }
+
+        }
+
+    },
+    computed: {
+        ...mapState({
+            token: state => state.token
+        })
+    }
 
 }
 </script>

@@ -40,21 +40,23 @@
             </template>
         </el-table-column>
     </el-table>
-    <AdminAreaPopup v-if="isShowPopup" :data="data" @closePopup="closePopup" @closePopupAndLoad="closePopupAndLoad" />
+    <AdminAreaPopup v-if="isShowPopup" :isPost="isPost" :data="data" @closePopup="closePopup" @closePopupAndLoad="closePopupAndLoad" />
 </template>
 
 <script>
 import { Timer } from '@element-plus/icons-vue';
 import { getPaging } from '@/js/api/getApi';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import AdminAreaPopup from './AdminAreaPopup.vue';
+import { deleteAdminDataApi } from '@/js/api/fetchAPI';
 
 export default {
     data() {
         return {
             tableData: [],
             data:{},
-            isShowPopup: false
+            isShowPopup: false,
+            isPost: true
         }
     },
     async created() {
@@ -64,13 +66,25 @@ export default {
         addArea(){
             this.data = {};
             this.isShowPopup = true;
+            this.isPost = true
         },
         handleEdit(index, row) {
             this.data = row;
             this.isShowPopup = true;
+            this.isPost = false
         },
-        handleDelete(index, row){
-            console.log(index, row)
+        async handleDelete(index, row){
+            console.log(index, row);
+            this.data = row;
+            try {
+                let current = this;
+                let res = await deleteAdminDataApi('admin/area', current.data._id, this.token);
+                if(res.data){
+                    await this.loadArea();  
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
 
         async loadArea(){
@@ -119,7 +133,11 @@ export default {
     },
 
     components:{ Timer, AdminAreaPopup },
-
+    computed:{
+        ...mapState({
+            token: state => state.token
+        })
+    }
 
 }
 </script>

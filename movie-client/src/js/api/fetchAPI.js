@@ -91,3 +91,14 @@ export const putAdminDataApi = async (url, token, data) =>{
     });
     return res;
 }
+
+export const deleteAdminDataApi = async (url, id, token) =>{
+    const res = await axios.delete(`${apiUrl}${url}/${id}`, 
+    {headers: {
+        // "Access-Control-Allow-Origin" : "*",
+        // "Content-type": "Application/json",
+        "Authorization": `Bearer ${token}`
+        }   
+    });
+    return res;
+}

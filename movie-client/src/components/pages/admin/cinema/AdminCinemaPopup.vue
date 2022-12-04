@@ -41,7 +41,7 @@
 </template>
   
 <script>
-import { postAdminDataApi } from '@/js/api/fetchAPI';
+import { postAdminDataApi, putAdminDataApi } from '@/js/api/fetchAPI';
 import { mapActions, mapState } from 'vuex';
 import { getPaging } from '@/js/api/getApi';
 
@@ -61,7 +61,7 @@ export default {
             this.dataCinema.room = this.data.room.length
         }
     },
-    props: ['data'],
+    props: ['data','isPost'],
     methods: {
         async submitForm() {
             console.log(this.dataCinema);
@@ -81,7 +81,12 @@ export default {
                 this.controllLoader();
                 try {
                     let current = this;
-                    let res = await postAdminDataApi('admin/area', current.token, this.preData(current.dataCinema));
+                    let res;
+                    if(this.isPost){
+                        res = await postAdminDataApi('admin/cinema', current.token, this.preData(current.dataCinema));
+                    }else{
+                        res = await putAdminDataApi(`admin/cinema/${current.dataCinema._id}`, current.token, this.preData(current.dataCinema));
+                    }                    
 
                     if (res.data.data) {
                         this.$emit('closePopupAndLoad');
