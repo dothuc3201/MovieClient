@@ -93,7 +93,7 @@ export default {
     font-family: 'Oswald', sans-serif;
     line-height: 1.5em;
     font-weight: 700;
-    color: #337ab7;
+    color: #03599d;
     font-size: 18px;
 }
 .film-content {

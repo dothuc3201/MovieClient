@@ -1,7 +1,7 @@
 <template>
-    <div id="showtime-page" class="m-auto mt-3" style="max-width: 1150px;">
+    <div id="showtime-page" class="m-auto mt-3" style="max-width: 900px;">
         <div>
-            <ul class="nav justify-content-center">
+            <ul class="nav justify-content-center nav-bar">
                 <li class="nav-item">
                     <a class="nav-link active" href="#" style="font-size: 24px" @click="loadData">
                         {{ getDate(nowTime) }}
@@ -17,7 +17,7 @@
             </ul>
         </div>
         <div class="showtime-film row">
-            <div v-for="(item, index) in filmList" :key="index" class="col-6">
+            <div v-for="(item, index) in filmList" :key="index" class="col-6 showtime-film-item">
                 <ShowtimeBox :data=item @openDetail="openDetail" />
             </div>
         </div>
@@ -123,3 +123,18 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+    .nav-bar {
+        margin-bottom: 25px;
+        li {
+            border-bottom: 1px solid #7e7b7b;
+        }
+    }
+    .showtime-film-item {
+        margin: 10px 10px 30px 10px;
+        width: 47%;
+    }
+</style>

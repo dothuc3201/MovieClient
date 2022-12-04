@@ -44,7 +44,7 @@ export default {
 <style>
 body {
   margin: 0;
-  background-color: #F1F1F1;
+  background-color: #f8f8f8;
 }
 
 @import url(./css/main.css);

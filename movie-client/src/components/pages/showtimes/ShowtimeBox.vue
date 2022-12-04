@@ -11,27 +11,27 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-6 ">
             <div class="film-info film-xs-info">
-                <h3 class="d-flex align-items-center text-center text-sm-left text-xs-left bold font-sm-18 font-xs-14"
+                <h3 class="d-flex align-items-center film-name"
                     style="max-height: 50px; min-height: 50px;">
                     <a @click="showFilmDetail">{{ data.name }}</a>
                 </h3>
                 <ul class="list-unstyled font-sm-14 font-xs-14">
-                    <li style="max-height: 50px;"><span class="bold">
+                    <li class="fiml-text" style="max-height: 50px;"><span class="bold" style="font-weight: 700;">
                             Thể loại: </span>{{ data.genre }}</li>
-                    <li>
-                        <span class="bold">Thời lượng: </span>{{ data.durationMin }} phút
+                    <li class="fiml-text">
+                        <span class="bold" style="font-weight: 700;">Thời lượng: </span>{{ data.durationMin }} phút
                     </li>
                 </ul>
             </div>
             <div>
-                <div class=""><b>2D phụ đề</b></div>
+                <div class="phu-de"><b>2D PHỤ ĐỀ</b></div>
                 <div class="row">
-                    <div class="col-6" v-for="(item, index) in data.schedules" :key="index">
-                        <div class="text-center showtime-time m-2 p-2" @click="openDetail(item)">{{ bindingTime(item.time) }}
+                    <div class="col-6 showtime-item" v-for="(item, index) in data.schedules" :key="index">
+                        <div class="text-center showtime-time m-2 showtime-text" @click="openDetail(item)">{{ bindingTime(item.time) }}
                         </div>
-                        <div class="text-center">{{ item.numEmptySeat }} ghế trống</div>
+                        <div class="text-center so-ghe">{{ item.numEmptySeat }} ghế trống</div>
                     </div>
                 </div>
             </div>
@@ -78,3 +78,42 @@ export default {
 
 }
 </script>
+
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+    .img-responsive {
+        border-radius: 10px;
+    }
+    .film-name {
+        font-family: 'Oswald', sans-serif;
+        line-height: 1.5em;
+        font-weight: 700;
+        color: #03599d;
+        font-size: 20px;
+    }
+    .fiml-text {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 14px;
+    }
+    .phu-de {
+        font-family: 'Oswald', sans-serif;
+        font-size: 16px;
+    }
+    .showtime-time {
+        padding: 3px 0;
+    }
+    .showtime-text {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+    }
+    .so-ghe {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10px;
+    }
+    .showtime-item {
+        width: 33%;
+        padding: 0;
+    }
+</style>
