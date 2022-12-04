@@ -7,7 +7,7 @@
                     <button class="nav-link active" id="thongtintaikhoan-tab" data-bs-toggle="tab" data-bs-target="#thongtintaikhoan">Thông tin tài khoản</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="hanhtrinhdienanh-tab" data-bs-toggle="tab" data-bs-target="#hanhtrinhdienanh">Lịch sử giao dịché</button>
+                    <button class="nav-link" id="hanhtrinhdienanh-tab" data-bs-toggle="tab" data-bs-target="#hanhtrinhdienanh">Lịch sử giao dịch</button>
                 </li>
             </ul>
             <div class="tab-content font-family-san font-16" style="background-color: #fff;">
@@ -172,6 +172,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
     .nav {
         .nav-item .nav-link {
             color: var(--bs-dark);
@@ -180,6 +182,9 @@ export default {
                 background: var(--el-color-primary-dark-2);
                 color: var(--bs-white);
             }
+        }
+        .nav-link {
+            font-family: 'Oswald', sans-serif;
         }
     }
     .tab-content {
@@ -197,7 +202,11 @@ export default {
             }
         }
     }
-    label {
+    .btn-primary {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+    label, td {
+        font-family: 'Source Sans Pro', sans-serif;
         color: #000;
     }
     .error-msg {
