@@ -14,6 +14,7 @@ import Admin from "@/components/pages/admin/home/AdminHome.vue";
 import AdminArea from "@/components/pages/admin/area/AdminArea.vue";
 import AdminCinema from "@/components/pages/admin/cinema/AdminCinema.vue";
 import AdminFilm from "@/components/pages/admin/film/AdminFilm.vue";
+import AdminShowtime from "@/components/pages/admin/showtime/AdminShowtime.vue";
 import { createRouter, createWebHistory } from "vue-router";
 const routes = [
     {
@@ -102,6 +103,11 @@ const routes = [
         path:"/admin-film",
         name:'admin-film',
         component: AdminFilm
+    },
+    {
+        path:"/admin-showtime",
+        name:'admin-showtime',
+        component: AdminShowtime
     },
 ]
 

@@ -28,6 +28,12 @@
                 </div>
                 <div class="text">Phim</div>
             </router-link>
+            <router-link to="/admin-showtime" class="menu-item">
+                <div class="menu-icon">
+                    <div class="icon-dashboard icon-24 icon-sprite"></div>
+                </div>
+                <div class="text">Lịch chiếu phim</div>
+            </router-link>
         </div>
         <div id="container-admin" class="flex-fill h-100 p-3">
             <router-view></router-view>

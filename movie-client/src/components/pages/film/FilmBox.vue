@@ -31,7 +31,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="text-center padding-bottom-30" style="min-height: 85px;" v-if="isAdmin">
+            <div class="text-center padding-bottom-30 mua-ve" style="min-height: 85px;">
                 <a style="display: block;" class="btn btn-primary"                 
                 @click="openShowtimesPopup">
                     <span><i class="fa fa-ticket mr3"></i></span>
@@ -101,5 +101,8 @@ export default {
 }
 .film-text {
     font-family: 'Source Sans Pro', sans-serif;
+}
+.mua-ve {
+    font-family: 'Oswald', sans-serif;
 }
 </style>
