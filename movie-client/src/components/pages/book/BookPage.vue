@@ -2,7 +2,7 @@
     <div id="chose-place" class="d-flex justify-content-center">
         <div class="px-3">
             <div class="py-3">
-                <h3>Chiến binh báo đen</h3>
+                <h3>{{data.name}}</h3>
             </div>
             <div id="screen_form">
                 <div id="seat-status" class="d-flex d-flex justify-content-around mb-3">
