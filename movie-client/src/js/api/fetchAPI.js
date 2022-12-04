@@ -27,6 +27,30 @@ export const postDataApi = async (url, data) =>{
     return res;
 }
 
+
+export const postAdminDataApi = async (url, token, data) =>{
+    const res = await axios.post(`${apiUrl}${url}`, data, 
+    {headers: {
+        // "Access-Control-Allow-Origin" : "*",
+        // "Content-type": "Application/json",
+        "Authorization": `Bearer ${token}`
+        }   
+    });
+    return res;
+}
+
+export const getTokenDataApi = async (url, token ) =>{
+    const res = await axios.get(`${apiUrl}${url}`, 
+    {headers: {
+        // "Access-Control-Allow-Origin" : "*",
+        // "Content-type": "Application/json",
+        "Authorization": `Bearer ${token}`
+        }   
+    });
+    return res;
+}
+
+
 /**
  * Đỗ Văn Thức
  * Phương thức put

@@ -40,7 +40,7 @@
                         </div>
                         <div class="row">
                             <div class="col-3">NGÀY KHỞI CHIẾU</div>
-                            <div class="col-9">{{ data.openingDay }}</div>
+                            <div class="col-9">{{ getDate(data.openingDay) }}-{{getMonth(data.openingDay)}}-{{(new Date(data.openingDay)).getFullYear()}}</div>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
 
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" style="font-size: 24px" @click="loadData">
+                        <a class="nav-link active" href="#" style="font-size: 24px" @click="loadDataByDate(0, $event)">
                             {{ getDate(nowTime) }}
                             <span style="font-size: 16px">/{{ getMonth(nowTime) }}</span></a>
                     </li>
@@ -86,7 +86,8 @@ import { mapActions, mapState } from 'vuex'
 export default {
     data() {
         return {
-            data: {}
+            data: {},
+            nowTime: new Date()
         }
     },
     computed: {
@@ -99,6 +100,7 @@ export default {
         this.changeFilmId(this.$route.params.id);
         
         await this.loadData();
+        await this.loadDataByDate(0);
     },
     methods: {
         async loadData(event) {

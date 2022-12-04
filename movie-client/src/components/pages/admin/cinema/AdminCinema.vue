@@ -56,17 +56,22 @@
             </template>
         </el-table-column>
     </el-table>
+    <AdminCinemaPopup v-if="isShowPopup" :data="data" @closePopup="closePopup" @closePopupAndLoad="closePopupAndLoad" />
+
 </template>
 
 <script>
 import { Timer } from '@element-plus/icons-vue';
 import { getPaging } from '@/js/api/getApi';
 import { mapActions } from 'vuex';
+import AdminCinemaPopup from './AdminCinemaPopup.vue';
 
 export default {
     data() {
         return {
-            tableData: []
+            tableData: [],
+            isShowPopup: false,
+            data:{},
         }
     },
     async created() {
@@ -75,7 +80,9 @@ export default {
     methods: {
 
         handleEdit(index, row) {
-            console.log(index, row)
+            console.log(index, row);
+            this.data = row;
+            this.isShowPopup = true;
         },
         handleDelete(index, row){
             console.log(index, row)
@@ -87,6 +94,7 @@ export default {
                 let current = this;
                 const res = await getPaging('area/get-areas');
                 if(res.data){
+                    //this.dataProvince = res.data.data;
                     res.data.data = res.data.data.filter(item => {
                         if(item.cinemas.length > 0){
                             item.cinemas.filter(cinema => {
@@ -96,7 +104,7 @@ export default {
                         }
                         //return item.cinemas.length > 0;
                     });
-                    //current.dataProvince = res.data.data;
+                    
                 }
             } catch (error) {
                 console.log(error);
@@ -114,6 +122,15 @@ export default {
             return day;
         },
 
+        closePopup(){
+            this.isShowPopup = false
+        },
+
+        async closePopupAndLoad(){
+            this.isShowPopup = false;
+            await this.loadArea();
+        },
+
         getMonth(time) {
             // let day = (new Date(time)).getDate();
             // day = day < 10 ? `0${day}` : day;
@@ -125,7 +142,7 @@ export default {
         ...mapActions(["controllLoader"])
     },
 
-    components:{Timer},
+    components:{ Timer, AdminCinemaPopup },
 
 
 }
