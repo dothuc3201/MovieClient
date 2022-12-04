@@ -89,10 +89,13 @@ export default {
         chooseCinema(){
             var areaObj = document.getElementById('choose-area').ej2_instances[0];
             var cinemaObj = document.getElementById('choose-cinema').ej2_instances[0];  
+            localStorage.setItem('cinemaId', cinemaObj.value);
+            
             this.changeCinemaId(cinemaObj.value);
             this.changeAreaId(areaObj.value);
             this.dataCinema.filter(item => {
                 if(item._id == cinemaObj.value) {
+                    localStorage.setItem('cinemaName', item.name)
                     this.changeCinemaName(item.name)
                 }
             })

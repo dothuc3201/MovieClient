@@ -92,7 +92,9 @@ export default {
     },
     computed: {
         ...mapState({
-            filmId: state => state.filmId
+            filmId: state => state.filmId,
+            cinemaId: state => state.cinemaId,
+            cinemaName: state => state.cinemaName
         })
     },
     async created() {
