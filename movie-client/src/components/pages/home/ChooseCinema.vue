@@ -65,6 +65,7 @@ export default {
                 let current = this;
                 const res = await getPaging('area/get-areas');
                 if(res.data){
+                    
                     res.data.data = res.data.data.filter(item => {
                         if(item.cinemas.length > 0){
                             current.dataCinema = [...current.dataCinema, ...item.cinemas]

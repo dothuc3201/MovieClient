@@ -10,8 +10,22 @@
                 <img :src="logo" alt="logo" style="width: 130px" />
             </router-link>
             <div class="top-cart-block">
-                <el-select v-model="value" class="m-2" placeholder="Chọn khu vực">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+                <!-- <el-select v-model="value" class="m-2" placeholder="Chọn rạp phim">
+                    <el-option v-for="item in dataCinema" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select> -->
+                <el-select v-model="value" class="m-2" placeholder="Chọn rạp phim">
+                    <el-option-group
+                        v-for="group in dataCinemas"
+                        :key="group._id"
+                        :label="group.name"
+                        >
+                        <el-option
+                            v-for="item in group.cinemas"
+                            :key="item._id"
+                            :label="item.name"
+                            :value="item._id"
+                        />
+                    </el-option-group>
                 </el-select>
             </div>
             <div class="header-navigation d-flex">
@@ -65,31 +79,42 @@ import { ref } from 'vue'
 import logo from "../../assets/image/logo.png";
 import account from "../../assets/image/account.jpg";
 import { mapActions, mapState } from 'vuex';
+import { getPaging } from '@/js/api/getApi';
 
 const value = ref('')
 
-const options = [
-    {
-        value: 'Option1',
-        label: 'Hà Nội',
-    },
-    {
-        value: 'Option2',
-        label: 'TP Hồ Chí Minh',
-    },
-    {
-        value: 'Option3',
-        label: 'Thái Nguyên',
-    },
-    {
-        value: 'Option4',
-        label: 'Bắc Giang',
-    },
-    {
-        value: 'Option5',
-        label: 'Khánh Hòa',
-    },
-]
+// const dataCinema = [
+//   {
+//     label: 'Hà Nội',
+//     options: [
+//       {
+//         value: '1',
+//         label: 'Beta Cầu Giấy',
+//       },
+//       {
+//         value: '2',
+//         label: 'Beta Thanh Xuân',
+//       },
+//     ],
+//   },
+//   {
+//     label: 'Hồ Chí Minh',
+//     options: [
+//       {
+//         value: '1',
+//         label: 'Beta Quận 1',
+//       },
+//       {
+//         value: '2',
+//         label: 'Beta Quận 2',
+//       },
+//       {
+//         value: '3',
+//         label: 'Beta Quận 3',
+//       },
+//     ],
+//   },
+// ]
 
 export default {
     data() {
@@ -97,8 +122,12 @@ export default {
             logo,
             account,
             value,
-            options
+            dataCinemas:[],
         }
+    },
+
+    async created() {
+        await this.getCinemas();        
     },
 
     computed: {
@@ -109,6 +138,19 @@ export default {
     },
 
     methods: {
+        async getCinemas(){
+            try {
+                const res = await getPaging('area/get-areas');
+                if(res.data){
+                    console.log('aaaaaa', res.data.data)
+                    this.dataCinemas = res.data.data;
+                    console.log('bbb', this.dataCinemas)
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
         ...mapActions(['changeToken']),
         ...mapActions(['changeIsAdmin']),
     },

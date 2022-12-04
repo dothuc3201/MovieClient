@@ -38,4 +38,7 @@ export default{
         commit("setAdmin", payload)
     },
     
+    changeDataUser({commit}, payload){
+        commit("setDataUser", payload)
+    },
 }

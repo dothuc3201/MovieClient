@@ -168,8 +168,10 @@ export default {
                     let res = await postDataApi(url, current.loginForm);
                     
                     if (res.data.data.refreshToken){
+                        console.log('ttttttttt', res.data)
                         localStorage.setItem("token", res.data.data.refreshToken);
                         current.changeToken(res.data.data.refreshToken);
+                        this.changeDataUser(res.data.data);
                         if(res.data.data.isAdmin){
                             localStorage.setItem("isAdmin", true);
                             current.changeIsAdmin(true);
@@ -219,6 +221,7 @@ export default {
                     if (res.data.data.refreshToken){
                         localStorage.setItem("token", res.data.data.refreshToken);
                         current.changeToken(res.data.data.refreshToken);
+                        this.changeDataUser(res.data.data);
                         if(res.data.data.isAdmin){
                             localStorage.setItem("isAdmin", res.data.data.refrisAdmineshToken);
                             current.changeIsAdmin(true);
@@ -245,6 +248,7 @@ export default {
 
         ...mapActions(['changeToken']),
         ...mapActions(['changeIsAdmin']),
+        ...mapActions(['changeDataUser']),
     },
     computed: {
     }

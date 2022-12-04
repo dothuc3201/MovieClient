@@ -25,14 +25,14 @@
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Họ tên</label>
-                            <input type="text" id="txtName" value="" class="form-control" placeholder="Họ tên">
+                            <input type="text" id="txtName" :value="this.dataUser.name" class="form-control" placeholder="Họ tên">
                         </div>
                         <div class="col-md-6 mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Email</label>
-                            <input type="text" id="txtEmail" disabled="disabled" value="" class="form-control" placeholder="Email">
+                            <input type="text" id="txtEmail" disabled="disabled" :value="this.dataUser.email" class="form-control" placeholder="Email">
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-6 mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Số điện thoại</label>
                             <input type="text" id="txtDienThoai" value="" class="form-control" placeholder="Số điện thoại">
@@ -41,19 +41,22 @@
                             <label><span style="color: red;">*</span>&nbsp;CMND/Hộ chiếu</label>
                             <input type="text" id="txtCMND" value="" class="form-control" placeholder="CMND/Hộ chiếu">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label><span style="color: red;">*</span>&nbsp;Ngày sinh</label>
+                            <!-- <input id="txtNgaySinh" :value="moment(this.dataUser.birthday).format('DD/MM/YYYY')" class="datepicker form-control" placeholder="Ngày sinh" data-date-format="dd/mm/yyyy"> -->
+                            
                             <input id="txtNgaySinh" value="" class="datepicker form-control" placeholder="Ngày sinh" data-date-format="dd/mm/yyyy">
+
                         </div>
                         <div class="col-md-6 mb-4">
                             <label>Giới tính</label>
-                            <select id="cboSex" class="form-control" data-placeholder="Giới tính" tabindex="1">
+                            <select id="cboSex" class="form-control" data-placeholder="Giới tính" :tabindex="this.dataUser.gender">
                                 <option class="option-item" value="0">Giới tính</option>
-                                <option class="option-item" selected="" value="1">Nam</option>
-                                <option class="option-item" value="2">Nữ</option>
-                                <option class="option-item" value="3">Khác</option>
+                                <option class="option-item" value="male">Nam</option>
+                                <option class="option-item" value="female">Nữ</option>
+                                <option class="option-item" value="other">Khác</option>
                             </select>
                         </div>
                     </div>
@@ -263,20 +266,34 @@
     </div>
 </template>
 <script>
+// import { getDataProfile } from '@/js/api/getApi';
+import { mapActions, mapState } from 'vuex';
+
 export default {
     data() {
         return {
         }
     },
     async created() {
-        await this.loadData();
+        // await this.loadData();
+        await this.getInfoUser();
     },
     methods: {
-        async loadData() {
-        }
+        async getInfoUser(){
+            console.log('dataUser', this.dataUser)
+            
+        },
+
+        ...mapActions(['changeToken']),
+        ...mapActions(['changeIsAdmin']),
     },
     computed: {
-    }
+        ...mapState({
+            token: state => state.token,
+            isAdmin: state => state.isAdmin,
+            dataUser: state => state.dataUser,
+        }),
+    },
 }
 </script>
 <style lang="scss" scoped>
