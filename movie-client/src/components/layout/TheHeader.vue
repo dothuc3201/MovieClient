@@ -1,5 +1,5 @@
 <template>
-    <div class="header" :class="{'d-flex align-items-center': token ? true : false}" style="height: 100px;">
+    <div class="header" :class="{'d-flex align-items-center': token ? true : false}" style="height: 90px;">
         <div class="d-flex justify-content-end" style="background-color: black; padding-right: 100px;" v-if="!token">
             <router-link to="/login" class="px-2" style="color: #fff;">Login</router-link>
             <div style="color: #fff;">|</div>
@@ -190,10 +190,6 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
 
 .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     box-shadow: 0 1px 3px #ddd;
     background-color: #fff;
     z-index: 1;

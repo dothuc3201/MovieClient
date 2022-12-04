@@ -56,9 +56,7 @@ export default {
 </script>
 
 <style scoped>
-.content {
-    margin-top: 90px;
-}
+
 .content-admin {
     height: calc(100vh - 90px);
 }
