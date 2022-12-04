@@ -13,7 +13,12 @@
                 <!-- <el-select v-model="value" class="m-2" placeholder="Chọn rạp phim">
                     <el-option v-for="item in dataCinema" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select> -->
-                <el-select v-model="value" class="m-2" placeholder="Chọn rạp phim">
+                <el-select 
+                    v-model="cinemaValue" 
+                    class="m-2" 
+                    placeholder="Chọn rạp phim"
+                    :change="changeCinema()"
+                >
                     <el-option-group
                         v-for="group in dataCinemas"
                         :key="group._id"
@@ -123,18 +128,29 @@ export default {
             account,
             value,
             dataCinemas:[],
+            cinemaValue: ''
+        }
+    },
+
+    watch() {
+        () => {
+
         }
     },
 
     async created() {
-        await this.getCinemas();        
+        this.setCinemaId(); 
+        await this.getCinemas();       
+        
     },
 
     computed: {
         ...mapState({
             token: state => state.token,
-            isAdmin: state => state.isAdmin
-        })
+            isAdmin: state => state.isAdmin,
+            cinemaId: state => state.cinemaId,
+        }),
+        
     },
 
     methods: {
@@ -151,8 +167,20 @@ export default {
             }
         },
 
+        changeCinema() {
+            console.log('value', this.cinemaValue);
+            this.changeCinemaId(this.cinemaValue);
+            // dùng dataCinemas tìm ra tên rạp
+        },
+
+        setCinemaId() {
+            this.cinemaValue = this.cinemaId;
+        },
+
         ...mapActions(['changeToken']),
         ...mapActions(['changeIsAdmin']),
+        ...mapActions(['changeCinemaId']),
+        ...mapActions(['changeCinemaName']),
     },
 }
 
@@ -162,8 +190,13 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
 
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     box-shadow: 0 1px 3px #ddd;
     background-color: #fff;
+    z-index: 1;
 }
 
 .row {

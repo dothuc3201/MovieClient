@@ -268,6 +268,7 @@
 <script>
 // import { getDataProfile } from '@/js/api/getApi';
 import { mapActions, mapState } from 'vuex';
+import moment from 'moment';
 
 export default {
     data() {
@@ -282,6 +283,10 @@ export default {
         async getInfoUser(){
             console.log('dataUser', this.dataUser)
             
+        },
+
+        moment: function () {
+            return moment();
         },
 
         ...mapActions(['changeToken']),

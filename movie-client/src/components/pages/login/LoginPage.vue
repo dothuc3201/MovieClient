@@ -256,6 +256,8 @@ export default {
 
 </script>
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 .login-page {
     max-width: 500px;
 }
@@ -286,9 +288,22 @@ export default {
             color: var(--bs-white);
         }
     }
+    .nav-link {
+        font-family: 'Oswald', sans-serif;
+    }
+}
+
+.btn-primary {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+label {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #000;
 }
 
 .tab-content {
+    margin-bottom: 100px;
     .tab-pane {
         padding: 36px 16px;
 

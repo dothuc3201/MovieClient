@@ -21,13 +21,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
 img {
 	width: 100%;
 	border-radius: 20px !important;
 }
 
 a {
-	color: #000;
+	font-family: 'Oswald', sans-serif;
+	color: #337ab7;
 	&:hover {
 		text-decoration: underline;
 	}
