@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="m-auto mt-3" id="film-detail-info" style="max-width: 1150px;">
+        <div class="m-auto mt-5" id="film-detail-info">
             <div class="row">
                 <div class="product-item no-padding col-3">
                     <div class="pi-img-wrapper">
@@ -13,40 +13,40 @@
                 </div>
                 <div class="col-9">
                     <div class="film-info film-xs-info">
-                        <h3 class="d-flex align-items-center text-center text-sm-left text-xs-left bold font-sm-18 font-xs-14"
+                        <h3 class="film-name d-flex align-items-center text-center text-sm-left text-xs-left bold font-sm-18 font-xs-14"
                             style="max-height: 50px; min-height: 50px;">
                             {{ data.name }}
                         </h3>
-                        <div>{{ data.description }}</div>
+                        <div class="fiml-description">{{ data.description }}</div>
                         <div class="row mt-3">
-                            <div class="col-3">ĐẠO DIỄN</div>
-                            <div class="col-9">{{ data.director }}</div>
+                            <div class="col-3 film-lable">ĐẠO DIỄN:</div>
+                            <div class="col-9 fiml-description">{{ data.director }}</div>
                         </div>
                         <div class="row">
-                            <div class="col-3">DIỄN VIÊN</div>
-                            <div class="col-9">{{ data.actors }}</div>
+                            <div class="col-3 film-lable">DIỄN VIÊN:</div>
+                            <div class="col-9 fiml-description">{{ data.actors }}</div>
                         </div>
                         <div class="row">
-                            <div class="col-3">THỂ LOẠI</div>
-                            <div class="col-9">{{ data.genre }}</div>
+                            <div class="col-3 film-lable">THỂ LOẠI:</div>
+                            <div class="col-9 fiml-description">{{ data.genre }}</div>
                         </div>
                         <div class="row">
-                            <div class="col-3">THỜI LƯỢNG</div>
-                            <div class="col-9">{{ data.durationMin }} phút</div>
+                            <div class="col-3 film-lable">THỜI LƯỢNG:</div>
+                            <div class="col-9 fiml-description">{{ data.durationMin }} phút</div>
                         </div>
                         <div class="row">
-                            <div class="col-3">ĐỘ TUỔI</div>
-                            <div class="col-9">{{ data.ageRestriction }} tuổi</div>
+                            <div class="col-3 film-lable">ĐỘ TUỔI:</div>
+                            <div class="col-9 fiml-description">{{ data.ageRestriction }} tuổi</div>
                         </div>
                         <div class="row">
-                            <div class="col-3">NGÀY KHỞI CHIẾU</div>
-                            <div class="col-9">{{ getDate(data.openingDay) }}-{{getMonth(data.openingDay)}}-{{(new Date(data.openingDay)).getFullYear()}}</div>
+                            <div class="col-3 film-lable">NGÀY KHỞI CHIẾU:</div>
+                            <div class="col-9 fiml-description">{{ getDate(data.openingDay) }}-{{getMonth(data.openingDay)}}-{{(new Date(data.openingDay)).getFullYear()}}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="m-auto mt-3" id="film-detail-showtime" style="min-height: 200px; max-width: 1150px;">
+        <div class="m-auto mt-3" id="film-detail-showtime" style="min-height: 200px;">
             <div class="modal-show-time border-bottom ">
 
                 <ul class="nav justify-content-center">
@@ -76,7 +76,21 @@
                 </div>
             </div>
         </div>
-        <div id="film-detail-trailer"></div>
+        <div id="film-detail-trailer">
+            <div class="trailer-container">
+                <div class="trailer-header">
+                    <span class="header-text">Trailer</span>
+                </div>
+                <div class="trailer-content">
+                    <iframe class="fiml-video" src="https://youtube.com/embed/93p2lOgxjdw"></iframe>
+                    
+                    <!-- <video id="my_video_1" class="video-js vjs-fluid vjs-default-skin" controls preload="auto"
+                        data-setup='{}'>
+                            <source src="https://stg-cdn.famtechvn.com/shared/videos/af437239-e293-4616-952d-dfa39538d748/af437239-e293-4616-952d-dfa39538d748-playlist.m3u8" type="application/x-mpegURL">
+                        </video> -->
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -177,3 +191,71 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+    #film-detail-info, #film-detail-showtime {
+        max-width: 900px;
+    }
+    .img-responsive {
+        border-radius: 10px;
+    }
+    .film-name {
+        font-family: 'Oswald', sans-serif;
+        font-weight: 700;
+    }
+    .fiml-description {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 15px;
+    }
+    .film-lable {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    #film-detail-trailer {
+        background-color: #3c3e4d;
+        width: 100%;
+        height: auto;
+        min-height: 400px;
+        display: flex;
+        justify-content: center;
+    }
+    .trailer-container {
+        width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 100px;
+    }
+    .trailer-header {
+        margin: 40px 0 20px 0;
+        display: flex;
+        justify-content: center;
+    }
+    .header-text {
+        font-family: 'Oswald', sans-serif;
+        line-height: 1.5em;
+        font-size: 26px;
+        padding-bottom: 7px;
+        margin: 0 0 15px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #fff;
+        border-bottom: 4px solid transparent;
+        border-image: linear-gradient(to right, #39adf0 0%, #075fa3 100%);
+        border-image-slice: 1;
+        float: left;
+    }
+    .trailer-content {
+        height: 335px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .fiml-video {
+        width: 600px;
+    }
+</style>
