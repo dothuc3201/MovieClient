@@ -1,4 +1,7 @@
 <template>
+    <div>
+
+    </div>
     <el-table :data="tableData" class="">
         <el-table-column label="Tỉnh/thành phố" width="180">
             <template #default="scope">
@@ -34,17 +37,21 @@
             </template>
         </el-table-column>
     </el-table>
+    <AdminAreaPopup v-if="isShowPopup" :data="data" @closePopup="closePopup" @closePopupAndLoad="closePopupAndLoad" />
 </template>
 
 <script>
 import { Timer } from '@element-plus/icons-vue';
 import { getPaging } from '@/js/api/getApi';
 import { mapActions } from 'vuex';
+import AdminAreaPopup from './AdminAreaPopup.vue';
 
 export default {
     data() {
         return {
-            tableData: []
+            tableData: [],
+            data:{},
+            isShowPopup: false
         }
     },
     async created() {
@@ -53,7 +60,8 @@ export default {
     methods: {
 
         handleEdit(index, row) {
-            console.log(index, row)
+            this.data = row;
+            this.isShowPopup = true;
         },
         handleDelete(index, row){
             console.log(index, row)
@@ -92,10 +100,19 @@ export default {
             return month;
         },
 
+        closePopup(){
+            this.isShowPopup = false
+        },
+
+        async closePopupAndLoad(){
+            this.isShowPopup = false;
+            await this.loadArea();
+        },
+
         ...mapActions(["controllLoader"])
     },
 
-    components:{Timer},
+    components:{ Timer, AdminAreaPopup },
 
 
 }

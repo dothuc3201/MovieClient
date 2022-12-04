@@ -1,5 +1,5 @@
 <template>
-    <div class="header d-flex align-items-center" style="height: 90px;">
+    <div class="header" :class="{'d-flex align-items-center': token ? true : false}" style="height: 90px;">
         <div class="d-flex justify-content-end" style="background-color: black; padding-right: 100px;" v-if="!token">
             <router-link to="/login" class="px-2" style="color: #fff;">Login</router-link>
             <div style="color: #fff;">|</div>
