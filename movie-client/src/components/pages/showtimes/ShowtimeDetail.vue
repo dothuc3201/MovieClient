@@ -3,23 +3,23 @@
         <div class="dialog-container p-3" style="min-width: 700px;">
 
             <div class="dialog-header">
-                <h5 class="modal-title">BẠN ĐANG ĐẶT VÉ XEM PIM</h5>
+                <h5 class="modal-title">BẠN ĐANG ĐẶT VÉ XEM PHIM</h5>
                 <button class="icon-button" @click="btnCloseOnClick">
                     <div class="icon-24 icon-exit icon-sprite"></div>
                 </button>
             </div>
             <div class="dialog-body p-3">
-                <div class="text-center p-3 border-bottom"><h3>{{data.name}}</h3></div>
+                <div class="text-center p-3 border-bottom fiml-name"><h3>{{data.name}}</h3></div>
                 
-                <div class="row p-2">
-                    <div class="col text-center">Rạp chiếu</div>
-                    <div class="col text-center">Ngày chiếu</div>
-                    <div class="col text-center">Giờ chiếu</div>
+                <div class="row p-2" style="margin-top: 10px;">
+                    <div class="col text-center info-text">Rạp chiếu</div>
+                    <div class="col text-center info-text">Ngày chiếu</div>
+                    <div class="col text-center info-text">Giờ chiếu</div>
                 </div>
                 <div class="row p-3" style="background-color: #eaeaea;">
-                    <div class="col text-center"><h4><b>{{cinemaName}}</b></h4></div>
-                    <div class="col text-center"><h4><b>{{getDate(currentSchedules.time)}}/{{getMonth(currentSchedules.time)}}/{{(new Date(currentSchedules.time)).getFullYear()}}</b></h4></div>
-                    <div class="col text-center"><h4><b>{{bindingTime(currentSchedules.time)}}</b></h4></div>
+                    <div class="col text-center info-item"><h5><b>{{cinemaName}}</b></h5></div>
+                    <div class="col text-center info-item"><h5><b>{{getDate(currentSchedules.time)}}/{{getMonth(currentSchedules.time)}}/{{(new Date(currentSchedules.time)).getFullYear()}}</b></h5></div>
+                    <div class="col text-center info-item"><h5><b>{{bindingTime(currentSchedules.time)}}</b></h5></div>
                 </div>
             </div>
             <div class="dialog-footer d-flex m-3 justify-content-center">
@@ -76,3 +76,24 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+    .modal-title {
+        font-family: 'Oswald', sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+    }
+    .fiml-name {
+        font-family: 'Oswald', sans-serif;
+        color: #03599d;
+    }
+    .info-text {
+        font-family: 'Oswald', sans-serif;
+        font-size: 15px;
+    }
+    .info-item, .btn-primary {
+        font-family: 'Oswald', sans-serif;
+    }
+</style>

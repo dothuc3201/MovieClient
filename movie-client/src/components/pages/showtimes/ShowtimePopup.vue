@@ -3,14 +3,14 @@
         <div class="dialog-container p-3" style="min-width: 950px;">
 
             <div class="dialog-header ">
-                <h5 class="modal-title">LỊCH CHIẾU</h5>
+                <h5 class="modal-title text">LỊCH CHIẾU</h5>
                 <button class="icon-button" @click="btnCloseOnClick">
                     <div class="icon-24 icon-exit icon-sprite"></div>
                 </button>
             </div>
             <div class="dialog-body mt-3">
                 <div class="text-center p-2 border-top border-bottom">
-                    <h5 class="modal-title">{{cinemaName.toUpperCase()}}</h5>
+                    <h5 class="modal-title text cinema-name">RẠP {{cinemaName.toUpperCase()}}</h5>
                 </div>
                 <div class="modal-show-time border-bottom ">
 
@@ -30,12 +30,12 @@
                         </li>
                     </ul>
                 </div>
-                <div class="" style="min-height: 200px;">
-                    <div class=""><b>2D phụ đề</b></div>
+                <div class="" style="min-height: 200px; margin-top: 10px;">
+                    <div class="text"><b>2D phụ đề</b></div>
                     <div class="row">
                         <div class="col-2" v-for="(item, index) in schedules" :key="index">
-                            <div class="text-center showtime-time m-2 p-2" @click="openDetail(item)">{{bindingTime(item.time)}}</div>
-                            <div class="text-center">{{item.numEmptySeat}} ghế trống</div>
+                            <div class="text-center showtime-time m-2 text" @click="openDetail(item)">{{bindingTime(item.time)}}</div>
+                            <div class="text-center text">{{item.numEmptySeat}} ghế trống</div>
                         </div>
                     </div>
                 </div>
@@ -169,3 +169,17 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+
+.text {
+    font-family: 'Oswald', sans-serif;
+}
+.cinema-name {
+    font-size: 28px;
+}
+.showtime-time {
+    padding: 5px 8px;
+}
+</style>

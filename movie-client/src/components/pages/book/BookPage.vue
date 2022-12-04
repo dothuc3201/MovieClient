@@ -1,26 +1,26 @@
 <template>
     <div id="chose-place" class="d-flex justify-content-center">
         <div class="px-3">
-            <div class="py-3">
+            <div class="py-3 fiml-name">
                 <h3>{{data.name}}</h3>
             </div>
             <div id="screen_form">
                 <div id="seat-status" class="d-flex d-flex justify-content-around mb-3">
                     <div class=" d-flex">
                         <div><img width="35" height="35" src="@/assets/image/seat-unselect-normal.png" /></div>
-                        <div>Ghế trống</div>
+                        <div class="text">Ghế trống</div>
                     </div>
                     <div class=" d-flex">
                         <div><img width="35" height="35" src="@/assets/image/seat-select-normal.png" /></div>
-                        <div>Ghế đang chọn</div>
+                        <div class="text">Ghế đang chọn</div>
                     </div>
                     <div class=" d-flex">
                         <div><img width="35" height="35" src="@/assets/image/seat-process-normal.png" /></div>
-                        <div>Ghế đang được giữ</div>
+                        <div class="text">Ghế đang được giữ</div>
                     </div>
                     <div class=" d-flex">
                         <div><img width="35" height="35" src="@/assets/image/seat-buy-normal.png" /></div>
-                        <div>Ghế đã bán</div>
+                        <div class="text">Ghế đã bán</div>
                     </div>
                 </div>
                 <div id="seat-diagram">
@@ -48,73 +48,73 @@
             <div class="payment-seat-row"></div>
         </div>
         <div id="film-info" class="row" style="height:650px; width: 350px; background-color: #fff;">
-            <div class="col-6">
+            <div class="col-6" style="margin-top: 20px;">
                 <img class="img-responsive border-radius-20 m-auto" alt=""
                     src="https://famtech-dev.s3.amazonaws.com/shared/images/72da6765144ff27529070156ed756a58.jpg" />
             </div>
-            <div class="col-6">
-                <div>{{data.name}}</div>
-                <div>2D phụ đề</div>
+            <div class="col-6" style="margin-top: 20px;">
+                <div class="text fiml-name">{{data.name}}</div>
+                <div class="text">2D phụ đề</div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6" style="margin-top: 20px;">
                 <div>
                     <i class="bi bi-tags-fill"></i>
-                    <p>Thể loại</p>
+                    <p class="text text-weight">Thể loại</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{data.genre}}</b></div>
+            <div class="col-6 text" style="margin-top: 20px;"><b>{{data.genre}}</b></div>
 
             <div class="col-6">
                 <div>
                     <i class="bi bi-clock"></i>
-                    <p>Thời lượng</p>
+                    <p class="text text-weight">Thời lượng</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{data.durationMin}} phút</b></div>
+            <div class="col-6 text"><b>{{data.durationMin}} phút</b></div>
 
             <div class="col-6">
                 <div>
                     <i class="bi bi-house"></i>
-                    <p>Rạp chiếu</p>
+                    <p class="text text-weight">Rạp chiếu</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{cinemaName}}</b></div>
+            <div class="col-6 text"><b>{{cinemaName}}</b></div>
 
             <div class="col-6">
                 <div>
                     <i class="bi bi-calendar-event"></i>
-                    <p>Ngày chiếu</p>
+                    <p class="text text-weight">Ngày chiếu</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{getDate(currentSchedules.time)}}/{{getMonth(currentSchedules.time)}}/{{(new Date(currentSchedules.time)).getFullYear()}}</b></div>
+            <div class="col-6 text"><b>{{getDate(currentSchedules.time)}}/{{getMonth(currentSchedules.time)}}/{{(new Date(currentSchedules.time)).getFullYear()}}</b></div>
 
             <div class="col-6">
                 <div>
                     <i class="bi bi-clock"></i>
-                    <p>Giờ chiếu</p>
+                    <p class="text text-weight">Giờ chiếu</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{bindingTime(currentSchedules.time)}}</b></div>
+            <div class="col-6 text"><b>{{bindingTime(currentSchedules.time)}}</b></div>
 
             <div class="col-6">
                 <div>
                     <i class="bi bi-display"></i>
-                    <p>Phòng chiếu</p>
+                    <p class="text text-weight">Phòng chiếu</p>
                 </div>
             </div>
-            <div class="col-6"><b>P{{currentSchedules.room}}</b></div>
+            <div class="col-6 text"><b>P{{currentSchedules.room}}</b></div>
 
             <div class="col-6">
                 <div>
                     <i class="bi bi-boxes"></i>
-                    <p>Ghế ngồi</p>
+                    <p class="text text-weight">Ghế ngồi</p>
                 </div>
             </div>
             <div class="col-6"><b>{{}}</b></div>
             <div class="col-12">
                 <div class="text-center padding-bottom-30" style="min-height: 85px;">
-                    <a style="display: block;" class="btn btn-primary" @click="openShowtimesPopup">
+                    <a style="display: block;" class="btn btn-primary text" @click="openShowtimesPopup">
                         <span><i class="fa fa-ticket mr3"></i></span>
                         MUA VÉ</a>
                 </div>
@@ -190,7 +190,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
+.fiml-name {
+    font-family: 'Oswald', sans-serif;
+    color: #03599d;
+}
 .seat-item {
     height: 40px;
     width: 40px;    
@@ -208,5 +213,17 @@ export default {
 
 .seat-buy{
     background-image: url(@/assets/image/seat-buy-normal.png) !important;
+}
+.text {
+    font-family: 'Oswald', sans-serif;
+}
+#film-info {
+    margin: 25px 0;
+}
+.img-responsive {
+    border-radius: 10px;
+}
+.text-weight {
+    font-weight: 300;
 }
 </style>

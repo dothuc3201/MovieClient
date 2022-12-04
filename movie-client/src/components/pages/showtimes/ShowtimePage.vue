@@ -125,8 +125,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
     .nav-bar {
         margin-bottom: 25px;
         li {
