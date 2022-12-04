@@ -80,3 +80,14 @@ export const patchDataApi = async (url, data) => {
     const res = await axios.patch(`${apiUrl}${url}`, data);
     return res;
 }
+
+export const putAdminDataApi = async (url, token, data) =>{
+    const res = await axios.put(`${apiUrl}${url}`, data, 
+    {headers: {
+        // "Access-Control-Allow-Origin" : "*",
+        // "Content-type": "Application/json",
+        "Authorization": `Bearer ${token}`
+        }   
+    });
+    return res;
+}
