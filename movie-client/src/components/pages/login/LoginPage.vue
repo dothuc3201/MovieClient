@@ -116,7 +116,7 @@
 </template>
 <script>
 import { postDataApi } from '@/js/api/fetchAPI';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     data() {
@@ -168,7 +168,6 @@ export default {
                     let res = await postDataApi(url, current.loginForm);
                     
                     if (res.data.data.refreshToken){
-                        console.log('ttttttttt', res.data)
                         localStorage.setItem("token", res.data.data.refreshToken);
                         current.changeToken(res.data.data.refreshToken);
                         this.changeDataUser(res.data.data);
@@ -229,7 +228,13 @@ export default {
                             current.$router.push('/admin');
                         }
                         else
-                        current.$router.push('/');
+                        {
+                            if(current.currentSchedules){
+                                current.$router.push('/dat-ve');
+                            }else{
+                                current.$router.push('/');
+                            }
+                        }
                     }
                 } catch (error) {
                     console.log(error);
@@ -251,6 +256,9 @@ export default {
         ...mapActions(['changeDataUser']),
     },
     computed: {
+        ...mapState({
+            currentSchedules : state => state.currentSchedules
+        })
     }
 }
 

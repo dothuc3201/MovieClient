@@ -66,9 +66,9 @@ export default {
 
 
         bindingTime(time) {
-            let minute = (new Date(time)).getUTCMinutes()
+            let minute = (new Date(time)).getMinutes()
             minute = minute < 10 ? `0${minute}` : minute;
-            return `${(new Date(time)).getUTCHours()}:${minute}`
+            return `${(new Date(time)).getHours()}:${minute}`
         },
 
         ...mapActions(['changeData']),

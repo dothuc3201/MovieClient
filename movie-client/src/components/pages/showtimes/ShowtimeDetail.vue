@@ -24,7 +24,7 @@
             </div>
             <div class="dialog-footer d-flex m-3 justify-content-center">
                 <button type="button" class="btn btn-primary">
-                    <router-link to="/dat-ve" >Đồng ý</router-link>
+                    <router-link :to="token ? '/dat-ve' : '/login' " >Đồng ý</router-link>
                 </button>
             </div>
         </div>
@@ -61,9 +61,9 @@ export default {
         },
 
         bindingTime(time) {
-            let minute = (new Date(time)).getUTCMinutes()
+            let minute = (new Date(time)).getMinutes()
             minute = minute < 10 ? `0${minute}` : minute;
-            return `${(new Date(time)).getUTCHours()}:${minute}`
+            return `${(new Date(time)).getHours()}:${minute}`
         },
 
     },
@@ -71,7 +71,8 @@ export default {
         ...mapState({
             cinemaName: state => state.cinemaName,
             data: state => state.data,
-            currentSchedules: state => state.currentSchedules
+            currentSchedules: state => state.currentSchedules,
+            token: state => state.token
         })
     }
 }
