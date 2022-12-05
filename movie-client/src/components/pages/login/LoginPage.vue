@@ -164,9 +164,10 @@ export default {
 
             if (isValid){                
                 try {
+                    this.controllLoader();
                     let current = this;
                     let res = await postDataApi(url, current.loginForm);
-                    
+                    this.controllLoader();
                     if (res.data.data.refreshToken){
                         localStorage.setItem("token", res.data.data.refreshToken);
                         current.changeToken(res.data.data.refreshToken);
@@ -254,6 +255,7 @@ export default {
         ...mapActions(['changeToken']),
         ...mapActions(['changeIsAdmin']),
         ...mapActions(['changeDataUser']),
+        ...mapActions(['controllLoader']),
     },
     computed: {
         ...mapState({
