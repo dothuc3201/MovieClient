@@ -61,7 +61,7 @@
         <div id="film-info" class="row" style="height:650px; width: 350px; background-color: #fff;">
             <div class="col-6" style="margin-top: 20px;">
                 <img class="img-responsive border-radius-20 m-auto" alt=""
-                    src="https://famtech-dev.s3.amazonaws.com/shared/images/72da6765144ff27529070156ed756a58.jpg" />
+                    :src=data.avatarUrl />
             </div>
             <div class="col-6" style="margin-top: 20px;">
                 <div class="text fiml-name">{{data.name}}</div>
