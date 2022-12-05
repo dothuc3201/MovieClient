@@ -82,8 +82,8 @@
                     <span class="header-text">Trailer</span>
                 </div>
                 <div class="trailer-content">
-                    <iframe class="fiml-video" src="https://youtube.com/embed/93p2lOgxjdw"></iframe>
-                    
+                    <iframe class="fiml-video" :src="data.trailerUrl" title="Official Trailer | Hạnh Phúc Máu | Beta Cinemas | Khởi chiếu 25/11/2022" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <!-- <iframe width="936" height="506" src="https://www.youtube.com/embed/ugiYolahNlY" title="Official Trailer | Hạnh Phúc Máu | Beta Cinemas | Khởi chiếu 25/11/2022" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
                     <!-- <video id="my_video_1" class="video-js vjs-fluid vjs-default-skin" controls preload="auto"
                         data-setup='{}'>
                             <source src="https://stg-cdn.famtechvn.com/shared/videos/af437239-e293-4616-952d-dfa39538d748/af437239-e293-4616-952d-dfa39538d748-playlist.m3u8" type="application/x-mpegURL">
@@ -92,18 +92,22 @@
             </div>
         </div>
     </div>
+    <ShowtimeDetail v-if="isShowShowtimeDetail" @closeDialog="closeDialog"  />
 </template>
 
 <script>
 import { getById, getPaging } from '@/js/api/getApi';
 import { mapActions, mapState } from 'vuex'
+import ShowtimeDetail from '../showtimes/ShowtimeDetail.vue';
 export default {
     data() {
         return {
             data: {},
             nowTime: new Date(),
-            schedules:[],
-        }
+            schedules: [],
+            isShowShowtimeDetail: false,
+            currentSchedules: {}
+        };
     },
     computed: {
         ...mapState({
@@ -113,9 +117,8 @@ export default {
         })
     },
     async created() {
-        //console.log(this.$route.params.id);
+
         this.changeFilmId(this.$route.params.id);
-        
         await this.loadData();
         await this.loadDataByDate(0);
     },
@@ -134,12 +137,12 @@ export default {
                     current.data = res.data.data;
                 }
                 this.controllLoader();
-            } catch (error) {
+            }
+            catch (error) {
                 console.log(error);
                 this.controllLoader();
             }
         },
-
         async loadDataByDate(n, event) {
             this.controllLoader();
             try {
@@ -152,30 +155,27 @@ export default {
                 const res = await getPaging("film-schedule/get-film-schedules", {
                     filmId: current.data._id,
                     cinemaId: current.cinemaId,
-                    date: new Date(queryDate.getFullYear(), queryDate.getMonth(),queryDate.getDate(), 7)
+                    date: new Date(queryDate.getFullYear(), queryDate.getMonth(), queryDate.getDate(), 7)
                 });
                 if (res.data) {
                     current.schedules = res.data.data[current.cinemaName];
                 }
-                
-            } catch (error) {
+            }
+            catch (error) {
                 console.log(error);
             }
             this.controllLoader();
         },
-
         bindingTime(time) {
-            let minute = (new Date(time)).getMinutes()
+            let minute = (new Date(time)).getMinutes();
             minute = minute < 10 ? `0${minute}` : minute;
-            return `${(new Date(time)).getHours()}:${minute}`
+            return `${(new Date(time)).getHours()}:${minute}`;
         },
-
         getDate(time) {
             let day = (new Date(time)).getDate();
             day = day < 10 ? `0${day}` : day;
             return day;
         },
-
         getMonth(time) {
             // let day = (new Date(time)).getDate();
             // day = day < 10 ? `0${day}` : day;
@@ -183,12 +183,22 @@ export default {
             month = month < 10 ? `0${month}` : month;
             return month;
         },
-
+        openDetail(item) {
+            this.isShowShowtimeDetail = true;
+            this.currentSchedules = item;
+            this.changeData(this.data);
+            this.changeShedules(this.currentSchedules);
+        },
+        closeDialog() {
+            this.isShowShowtimeDetail = false;
+        },
         // ẩn/ hiện loading
-        ...mapActions(['controllLoader']),
-
-        ...mapActions(['changeFilmId']),
-    }
+        ...mapActions(["controllLoader"]),
+        ...mapActions(["changeData"]),
+        ...mapActions(["changeShedules"]),
+        ...mapActions(["changeFilmId"]),
+    },
+    components: { ShowtimeDetail }
 }
 </script>
 
