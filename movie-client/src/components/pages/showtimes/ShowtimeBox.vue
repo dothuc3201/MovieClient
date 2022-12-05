@@ -15,7 +15,7 @@
             <div class="film-info film-xs-info">
                 <h3 class="d-flex align-items-center film-name"
                     style="max-height: 50px; min-height: 50px;">
-                    <a @click="showFilmDetail">{{ data.name }}</a>
+                    <router-link :to="'/chi-tiet-film/' + data._id">{{ data.name }}</router-link>
                 </h3>
                 <ul class="list-unstyled font-sm-14 font-xs-14">
                     <li class="fiml-text" style="max-height: 50px;"><span class="bold" style="font-weight: 700;">
