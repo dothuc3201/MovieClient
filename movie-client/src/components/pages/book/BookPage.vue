@@ -124,7 +124,7 @@
                     <p class="text text-weight">Ghế ngồi</p>
                 </div>
             </div>
-            <div class="col-6"><b>{{ chooseSeatName }}</b></div>
+            <div class="col-6"><b>{{ chooseSeatName.join(',') }}</b></div>
             <div class="col-12">
                 <div class="text-center padding-bottom-30" style="min-height: 85px;">
                     <a style="display: block;" class="btn btn-primary text" @click="booking">

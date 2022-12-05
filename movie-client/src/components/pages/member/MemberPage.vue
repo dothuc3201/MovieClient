@@ -4,10 +4,12 @@
             <!-- TABS -->
             <ul class="nav nav-tabs text-uppercase tab-information">
                 <li class="nav-item">
-                    <button class="nav-link active" id="thongtintaikhoan-tab" data-bs-toggle="tab" data-bs-target="#thongtintaikhoan">Thông tin tài khoản</button>
+                    <button class="nav-link active" id="thongtintaikhoan-tab" data-bs-toggle="tab"
+                        data-bs-target="#thongtintaikhoan">Thông tin tài khoản</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" id="hanhtrinhdienanh-tab" data-bs-toggle="tab" data-bs-target="#hanhtrinhdienanh">Lịch sử giao dịch</button>
+                    <button class="nav-link" id="hanhtrinhdienanh-tab" data-bs-toggle="tab"
+                        data-bs-target="#hanhtrinhdienanh">Lịch sử giao dịch</button>
                 </li>
             </ul>
             <div class="tab-content font-family-san font-16" style="background-color: #fff;">
@@ -17,7 +19,8 @@
                         <div class="row">
                             <div class="col-md-12 mb-4">
                                 <label><span style="color: red;">*</span>&nbsp;Họ tên</label>
-                                <input type="text" id="txtName" v-model="this.userProfile.name" class="form-control" placeholder="Họ tên" required>
+                                <input type="text" id="txtName" v-model="this.userProfile.name" class="form-control"
+                                    placeholder="Họ tên" required>
                                 <p class="error-msg">Vui lòng nhập họ tên</p>
                             </div>
                             <!-- <div class="col-md-6 mb-4">
@@ -28,12 +31,15 @@
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label><span style="color: red;">*</span>&nbsp;Ngày sinh</label>
-                                <input id="txtNgaySinh" v-model="this.userProfile.birthday" class="datepicker form-control" placeholder="Ngày sinh" data-date-format="dd/mm/yyyy" required>
+                                <input id="txtNgaySinh" v-model="this.userProfile.birthday"
+                                    class="datepicker form-control" placeholder="Ngày sinh"
+                                    data-date-format="dd/mm/yyyy" required>
                                 <p class="error-msg">Vui lòng chọn ngày sinh</p>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label>Giới tính</label>
-                                <select id="cboSex" class="form-control" data-placeholder="Giới tính" v-model="this.userProfile.gender">
+                                <select id="cboSex" class="form-control" data-placeholder="Giới tính"
+                                    v-model="this.userProfile.gender">
                                     <option class="option-item" value="0">Giới tính</option>
                                     <option class="option-item" value="male">Nam</option>
                                     <option class="option-item" value="female">Nữ</option>
@@ -55,9 +61,10 @@
                                     <th style="width: 20%">Phim</th>
                                     <th style="width: 10%">Rạp chiếu</th>
                                     <th style="width: 10%">Phòng chiếu</th>
-                                    <th style="width: 15%">Ghế đã đặt</th>
+                                    <th style="width: 10%">Ghế đã đặt</th>
                                     <th style="width: 10%">Ngày đặt</th>
-                                    <th style="width: 20%">Thành tiền</th>
+                                    <th style="width: 10%">Giờ chiếu</th>
+                                    <th style="width: 15%">Thành tiền</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,9 +72,12 @@
                                     <td style="width: 20%">{{ item.film.name }}</td>
                                     <td style="width: 10%">{{ item.cinema.name }}</td>
                                     <td style="width: 10%">{{ item.room }}</td>
-                                    <td style="width: 15%">{{ item.seats.join(',') }}</td>
+                                    <td style="width: 10%">{{ item.seats.join(',') }}</td>
                                     <td style="width: 10%">{{ moment(item.time).format('DD/MM/YYYY') }}</td>
-                                    <td style="width: 20%">{{ item.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }} vnđ</td>
+                                    <td style="width: 10%">{{ bindingTime(item.time) }}</td>
+                                    <td style="width: 15%">{{ item.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+                                            ".")
+                                    }} vnđ</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -97,9 +107,9 @@ export default {
         await this.getUserTickets();
     },
     methods: {
-        async getInfoUser(){
+        async getInfoUser() {
             console.log('dataUser', this.dataUser)
-            
+
         },
 
         async getUserProfile() {
@@ -138,8 +148,8 @@ export default {
                 birthday: moment(this.userProfile.birthday, 'DD/MM/YYYY').toISOString(),
                 gender: this.userProfile.gender,
             }
-            
-            if (isValid){
+
+            if (isValid) {
                 this.controllLoader();
                 try {
                     let res = await putAdminDataApi('user/profile', this.token, data);
@@ -158,6 +168,12 @@ export default {
             return moment();
         },
 
+        bindingTime(time) {
+            let minute = (new Date(time)).getMinutes()
+            minute = minute < 10 ? `0${minute}` : minute;
+            return `${(new Date(time)).getHours()}:${minute}`
+        },
+
         ...mapActions(['changeToken']),
         ...mapActions(['changeIsAdmin']),
         ...mapActions(["controllLoader"])
@@ -174,46 +190,57 @@ export default {
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;422&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
-    .nav {
-        .nav-item .nav-link {
-            color: var(--bs-dark);
-            font-weight: 500;
-            &.active {
-                background: var(--el-color-primary-dark-2);
-                color: var(--bs-white);
-            }
-        }
-        .nav-link {
-            font-family: 'Oswald', sans-serif;
+
+.nav {
+    .nav-item .nav-link {
+        color: var(--bs-dark);
+        font-weight: 500;
+
+        &.active {
+            background: var(--el-color-primary-dark-2);
+            color: var(--bs-white);
         }
     }
-    .tab-content {
-        .tab-pane {
-            padding: 36px 16px;
-            h2 {
-                font-size: 24px; 
-                color: #03599d;
-                text-transform: uppercase;
-            }
-            table {
-                thead th {
-                    font-weight: 500;
-                }
+
+    .nav-link {
+        font-family: 'Oswald', sans-serif;
+    }
+}
+
+.tab-content {
+    .tab-pane {
+        padding: 36px 16px;
+
+        h2 {
+            font-size: 24px;
+            color: #03599d;
+            text-transform: uppercase;
+        }
+
+        table {
+            thead th {
+                font-weight: 500;
             }
         }
     }
-    .btn-primary {
-        font-family: 'Source Sans Pro', sans-serif;
-    }
-    label, td {
-        font-family: 'Source Sans Pro', sans-serif;
-        color: #000;
-    }
-    .error-msg {
-        display: none;
-        color: red;
-    }
-    input:invalid + .error-msg {
-        display: block;
-    }
+}
+
+.btn-primary {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+label,
+td {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #000;
+}
+
+.error-msg {
+    display: none;
+    color: red;
+}
+
+input:invalid+.error-msg {
+    display: block;
+}
 </style>
